@@ -1,4 +1,4 @@
-Integrantes del equipo:
+Integrantes del equipo 4:
 
 - Lirio Vasquez, Duany (Lider de proyecto)
 - Savero Quiste, Guillermo (Analista Programador)
