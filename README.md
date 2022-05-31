@@ -1,4 +1,4 @@
-Integrantes del equipo:
+Integrantes del equipo 4:
 
 - Lirio Vasquez, Duany (Lider de proyecto)
 - Savero Quiste, Guillermo (Analista Programador)
@@ -7,3 +7,5 @@ Integrantes del equipo:
 - Bendezu Vargas, Jhonny (Desarrollador Backend)
 - Sifuentes Cordova, Miguel (Administrador de Base de Datos)
 - Jacobo Saravia, Frank (Tester QA)
+
+BAKATI GROUP ©
