@@ -7,3 +7,5 @@ Integrantes del equipo:
 - Bendezu Vargas, Jhonny (Desarrollador Backend)
 - Sifuentes Cordova, Miguel (Administrador de Base de Datos)
 - Jacobo Saravia, Frank (Tester QA)
+
+BAKATI GROUP ©
