@@ -1,0 +1,19 @@
+{
+  "name": "scels",
+  "version": "1.0.0",
+  "description": "backend del sistema de comercio electronico lambda store",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.8",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.16"
+  }
+}
