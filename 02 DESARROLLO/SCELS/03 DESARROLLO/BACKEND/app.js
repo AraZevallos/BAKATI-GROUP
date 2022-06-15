@@ -16,7 +16,17 @@ app.get("/", (req, res) => {
   res.send("hello API!");
 });
 
-mongoose.connect('mongodb+srv://bakati:vHsyvTUwL9aE9BhV@cluster0.5muzak8.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.CONNECTION_STRING,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  dbName: 'eshop'
+})
+.then(()=>{
+  console.log('Database Connection is ready...')
+})
+.catch((err)=>{
+  console.log(err);
+})
 
 app.listen(3000, () => {
   console.log(api);
