@@ -1,50 +1,13 @@
-const express = require("express");
-const app = express();
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-const cors = require('cors');
-require("dotenv/config");
+const express = require("express")
+require('dotenv').config({ path: './.env' })
+const logger = require('./utils/logger')
 
-app.use(cors());
-app.options('*', cors())
-
-
-//Middleware
-app.use(express.json());
-app.use(morgan('tiny'));
-
-
-//Routes
-const categoriesRoutes = require('./routes/categories');
-const productsRoutes = require('./routes/products');
-const usersRoutes = require('./routes/users');
-const ordersRoutes = require('./routes/orders');
-
-const api = process.env.API_URL;
-
-app.use(`${api}/categories`, categoriesRoutes);
-app.use(`${api}/products`, productsRoutes);
-app.use(`${api}/users`, usersRoutes);
-app.use(`${api}/orders`, ordersRoutes);
-
-
-
-//Database
-mongoose.connect(process.env.CONNECTION_STRING,{
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  dbName: 'eshop'
-})
-.then(()=>{
-  console.log('Database Connection is ready...')
-})
-.catch((err)=>{
-  console.log(err);
-})
-
+const app = express()
+require('./startup/database')(process.env.CONNECTION_STRING)
+require('./startup/extensions')(app)
+require('./startup/routes')(app)
 
 //Server
 app.listen(3000, () => {
-  console.log(api);
-  console.log("server is running http://localhost:3000");
-});
+  logger.info("server is running http://localhost:3000")
+})
