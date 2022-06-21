@@ -1,0 +1,37 @@
+.banner{
+    height: 280px;
+    width: 95%;
+    background-color: #BAE7FF;
+    border-radius: 5px;
+
+    &-text{
+        color:rgba(0, 0, 0, 0.85);;
+        margin-top:70px;
+
+        h1{
+            margin:0;
+            font-family: 'Roboto';
+            size: 30;
+            align-items: center;
+            font-weight: 500;
+        }
+        h2{
+            font-family: 'Roboto';
+            margin:0;
+            size:18;
+            margin-bottom:10px;
+            font-weight: 500;
+        }
+
+    }
+    
+    .col-5{
+        padding-left: 30px;
+        padding-top: 20px;
+    }
+
+    .p-button-info{
+        background-color: $primary-color-dark;
+        border:0;
+    }
+}
