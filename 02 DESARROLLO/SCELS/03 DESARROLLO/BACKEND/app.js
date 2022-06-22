@@ -1,34 +1,13 @@
-const express = require("express");
-const app = express();
-const morgan = require('morgan');
-const mongoose = require('mongoose');
+const express = require("express")
+require('dotenv').config({ path: './.env' })
+const logger = require('./utils/logger')
 
-require("dotenv/config");
+const app = express()
+require('./startup/database')(process.env.CONNECTION_STRING)
+require('./startup/extensions')(app)
+require('./startup/routes')(app)
 
-const api = process.env.API_URL;
-
-//Middleware
-app.use(express.json());
-app.use(morgan('tiny'));
-
-//http://localhost:3000/api/v1/products
-app.get("/", (req, res) => {
-  res.send("hello API!");
-});
-
-mongoose.connect(process.env.CONNECTION_STRING,{
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  dbName: 'eshop'
-})
-.then(()=>{
-  console.log('Database Connection is ready...')
-})
-.catch((err)=>{
-  console.log(err);
-})
-
+//Server
 app.listen(3000, () => {
-  console.log(api);
-  console.log("server is running http://localhost:3000");
-});
+  logger.info("server is running http://localhost:3000")
+})
