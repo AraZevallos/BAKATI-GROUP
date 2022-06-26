@@ -1,0 +1,38 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/orders/src",
+  "prefix": "orders",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:ng-packagr-lite",
+      "outputs": ["dist/libs/orders"],
+      "options": {
+        "project": "libs/orders/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/orders/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/orders/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/orders"],
+      "options": {
+        "jestConfig": "libs/orders/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/orders/**/*.ts", "libs/orders/**/*.html"]
+      }
+    }
+  },
+  "tags": []
+}
