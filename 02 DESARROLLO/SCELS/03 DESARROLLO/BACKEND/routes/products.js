@@ -6,8 +6,12 @@ const { validate_id } = require('../middlewares/validate_id');
 const router = express.Router();
 
 router.get('/', async function (req, res, next) {
+    let filter = {}
+    if (req.query.categories) {
+        filter = { category: req.query.categories.split(',') }
+    }
     try {
-        let productList = await Product.find()
+        let productList = await Product.find(filter).populate('category')
         res.status(200).send(productList)
     } catch (error) {
         return next(createError(500, 'No se pudo encontrar la lista'))
@@ -45,8 +49,21 @@ router.delete('/:id', [validate_id], async function (req, res, next) {
     }
 })
 router.get('/:id', [validate_id], async function (req, res, next) {
-    const categoria = await Product.findById(req.params.id)
-    if (!categoria) return next(createError(404, 'No existe un producto con ese id.'))
-    res.status(200).send(categoria)
+    const producto = await Product.findById(req.params.id).populate('category')
+    if (!producto) return next(createError(404, 'No existe un producto con ese id.'))
+    res.status(200).send(producto)
 })
+router.get('/get/count', function (req, res, next) {
+    Product.countDocuments(function (err, count) {
+        if (err) { return next(createError(500, { success: false })) }
+        else { res.status(200).send({ count }) }
+    })
+})
+router.get('/get/featured/:count', [], async function (req, res, next) {
+    const count = req.params.count ? req.params.count : 0
+    const products = await Product.find({ isFeatured: true }).limit(+count)
+    if (!products) return next(createError(500, { success: false }))
+    res.status(200).send(products)
+})
+
 module.exports = router;
