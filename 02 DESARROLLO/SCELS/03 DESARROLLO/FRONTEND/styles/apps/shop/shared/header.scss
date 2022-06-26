@@ -1,0 +1,29 @@
+header{
+    background-color: #131930;
+    .col-3{
+        text-align: center;
+    }
+.logo{
+    img{
+        width: 180px;
+        margin-top:6px;
+        
+    }
+    padding-left: 15px;
+}
+.tools{
+    .pi{
+        margin-right: 8px;
+        margin-top:8px;
+        color:#ffffff;
+        
+        cursor: pointer;
+            &:hover{
+                color:$primary-color;
+            }
+    }
+    padding-left:50px;
+}
+    margin-bottom: 25px;
+    
+}
