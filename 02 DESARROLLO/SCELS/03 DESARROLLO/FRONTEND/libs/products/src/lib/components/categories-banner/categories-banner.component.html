@@ -3,12 +3,12 @@
     <div class="categories-banner">
         <h3>Categorías</h3>
         <div class="grid">
-            <div class="col-2">
-                <div class="category">
+            <div class="col-2" *ngFor="let category of categories">
+                <div class="category" [routerLink]="'/products/category/'+category.id" [ngStyle]="{backgroundColor: category.color}">
                     <div class="category-icon">
-                        <i class="pi pi-android"></i>
+                        <i class="pi pi-{{category.icon}}"></i>
                     </div>
-                    <div class="category-name">Funkos</div>
+                    <div class="category-name">{{category.name}}</div>
                 </div>
             </div>
         </div>
