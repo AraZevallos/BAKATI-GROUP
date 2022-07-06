@@ -34,7 +34,7 @@ router.put('/:id', [validate_id, validate_category], async function (req, res, n
 })
 router.delete('/:id', [validate_id], async function (req, res, next) {
     try {
-        let category = await Category.findByIdAndRemove(req.params.id, req.body, { new: true })
+        let category = await Category.findByIdAndRemove(req.params.id)
         if (!category) return next(createError(404, 'No existe una categoria con ese id.'))
         res.status(200).send(category)
     } catch (error) {
