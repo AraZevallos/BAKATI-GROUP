@@ -41,7 +41,7 @@ router.put('/:id', [validate_id, validate_product], async function (req, res, ne
 })
 router.delete('/:id', [validate_id], async function (req, res, next) {
     try {
-        let product = await Product.findByIdAndRemove(req.params.id, req.body, { new: true })
+        let product = await Product.findByIdAndRemove(req.params.id)
         if (!product) return next(createError(404, 'No existe un producto con ese id.'))
         res.status(200).send(product)
     } catch (error) {
