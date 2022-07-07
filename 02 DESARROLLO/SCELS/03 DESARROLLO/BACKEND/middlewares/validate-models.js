@@ -34,7 +34,7 @@ function validateUser(req, res, next) {
   const { error } = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().required(),
-    passwordHash: Joi.string().required(),
+    password: Joi.string(),
     phone: Joi.string().required(),
     isAdmin: Joi.boolean().default(false),
     street: Joi.string().default(''),

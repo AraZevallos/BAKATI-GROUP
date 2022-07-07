@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -19,6 +20,7 @@
     "helmet": "^5.1.0",
     "joi": "^17.6.0",
     "joi-objectid": "^4.0.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.8",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.16",
