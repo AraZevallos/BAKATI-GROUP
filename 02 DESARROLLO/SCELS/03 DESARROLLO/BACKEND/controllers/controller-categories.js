@@ -6,7 +6,7 @@ async function getAllCategories(req, res, next) {
     let categories = await Category.find().sort({ name: 1 })
     res.status(200).json(categories)
   } catch (err) {
-    next(createError(400, 'Categories not found'))
+    next(createError(400, err.message))
   }
 }
 async function getCategoryById(req, res, next) {
@@ -14,7 +14,7 @@ async function getCategoryById(req, res, next) {
     let category = await Category.findById(req.params.id)
     res.status(200).json(category)
   } catch (err) {
-    next(createError(400, 'Category not found'))
+    next(createError(400, err.message))
   }
 }
 async function createCategory(req, res, next) {
@@ -23,7 +23,7 @@ async function createCategory(req, res, next) {
     await category.save()
     res.status(201).json(category)
   } catch (err) {
-    next(createError(400, 'Category not created'))
+    next(createError(400, err.message))
   }
 }
 async function updateCategory(req, res, next) {
@@ -31,7 +31,7 @@ async function updateCategory(req, res, next) {
     let category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json(category)
   } catch (err) {
-    next(createError(400, 'Category not updated'))
+    next(createError(400, err.message))
   }
 }
 async function deleteCategory(req, res, next) {
@@ -39,7 +39,7 @@ async function deleteCategory(req, res, next) {
     let category = await Category.findByIdAndDelete(req.params.id)
     res.status(200).json(category)
   } catch (err) {
-    next(createError(400, 'Category not deleted'))
+    next(createError(400, err.message))
   }
 }
 

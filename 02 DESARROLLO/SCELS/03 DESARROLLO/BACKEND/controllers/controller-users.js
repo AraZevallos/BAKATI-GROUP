@@ -7,7 +7,7 @@ async function getAllUsers(req, res, next) {
     let users = await User.find({}).select('-password')
     res.status(200).json(users)
   } catch (err) {
-    return next(createError(400, 'Users not found'))
+    return next(createError(400, err.message))
   }
 }
 async function getUserById(req, res, next) {
@@ -15,7 +15,7 @@ async function getUserById(req, res, next) {
     let user = await User.findById(req.params.id).select('-password')
     res.status(200).json(user)
   } catch (err) {
-    return next(createError(400, 'User not found'))
+    return next(createError(400, err.message))
   }
 }
 async function createUser(req, res, next) {
@@ -24,7 +24,7 @@ async function createUser(req, res, next) {
     let user = await User.create(req.body)
     res.status(201).json(user)
   } catch (err) {
-    return next(createError(400, 'User not created'))
+    return next(createError(400, err.message))
   }
 }
 async function updateUser(req, res, next) {
@@ -36,7 +36,7 @@ async function updateUser(req, res, next) {
     let user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json(user)
   } catch (err) {
-    return next(createError(400, 'User not updated'))
+    return next(createError(400, err.message))
   }
 }
 async function deleteUser(req, res, next) {
@@ -44,7 +44,7 @@ async function deleteUser(req, res, next) {
     let user = await User.findByIdAndDelete(req.params.id)
     res.status(200).json(user)
   } catch (err) {
-    return next(createError(400, 'User not deleted'))
+    return next(createError(400, err.message))
   }
 }
 async function loginUser(req, res, next) {
@@ -56,10 +56,10 @@ async function loginUser(req, res, next) {
     if (!bcrypt.compareSync(req.body.password, user.password)) {
       return next(createError(400, 'Password is incorrect'))
     }
-    let token = user.generateToken()
-    res.status(200).json({ user: user.email, token: token })
+    let token = user.generateAuthToken()
+res.status(200).json({ user: user.email, token: token })
   } catch (err) {
-    return next(createError(400, 'User not logged in'))
+    return next(createError(400, err.message))
   }
 }
 module.exports = { getAllUsers, getUserById, createUser, updateUser, deleteUser, loginUser }

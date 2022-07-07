@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
 
 const userSchema = mongoose.Schema({
   name: {
@@ -36,7 +37,8 @@ userSchema.virtual('id').get(function () { return this._id.toHexString() })
 userSchema.set('toJSON', { virtuals: true })
 userSchema.methods.generateAuthToken = function () {
   // jwt.sign() is a method that takes two arguments: an object to encode and a secret
-  return jwt.sign({ userId: this._id, isAdmin: this.isAdmin }, process.env.JWT_KEY) 
+  const token = jwt.sign({ userId: this._id, isAdmin: this.isAdmin }, process.env.JWT_KEY)
+  return token
 }
 
 const User = mongoose.model('User', userSchema)

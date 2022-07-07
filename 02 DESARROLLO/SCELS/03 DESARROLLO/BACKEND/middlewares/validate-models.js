@@ -46,5 +46,13 @@ function validateUser(req, res, next) {
   if (error) { return next(createError(400, error)) }
   next()
 }
+function validateAuth(req, res, next) {
+  const { error } = Joi.object({
+    email: Joi.string().required(),
+    password: Joi.string().required(),
+  }).validate(req.body)
+  if (error) { return next(createError(400, error)) }
+  next()
+}
 
-module.exports = { validateCategory, validateProduct, validateUser }
+module.exports = { validateCategory, validateProduct, validateUser, validateAuth }
