@@ -11,7 +11,6 @@ function validateCategory(req, res, next) {
   if (error) { return next(createError(400, error)) }
   next()
 }
-
 function validateProduct(req, res, next) {
   const { error } = Joi.object({
     name: Joi.string().required(),
@@ -31,5 +30,21 @@ function validateProduct(req, res, next) {
   if (error) { return next(createError(400, error)) }
   next()
 }
+function validateUser(req, res, next) {
+  const { error } = Joi.object({
+    name: Joi.string().required(),
+    email: Joi.string().required(),
+    passwordHash: Joi.string().required(),
+    phone: Joi.string().required(),
+    isAdmin: Joi.boolean().default(false),
+    street: Joi.string().default(''),
+    apartment: Joi.string().default(''),
+    city: Joi.string().default(''),
+    country: Joi.string().default(''),
+    zip: Joi.string().default(''),
+  }).validate(req.body)
+  if (error) { return next(createError(400, error)) }
+  next()
+}
 
-module.exports = { validateCategory, validateProduct }
+module.exports = { validateCategory, validateProduct, validateUser }
