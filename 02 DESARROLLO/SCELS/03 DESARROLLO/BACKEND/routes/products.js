@@ -1,8 +1,8 @@
 const { Product } = require('../models/product');
 const { Category } = require('../models/category');
 const express = require('express');
-const { validate_product } = require('../middlewares/validate_models');
-const { validate_id } = require('../middlewares/validate_id');
+const { validate_product } = require('../middlewares/validate-models');
+const { validate_id } = require('../middlewares/validate-id');
 const router = express.Router();
 
 router.get('/', async function (req, res, next) {

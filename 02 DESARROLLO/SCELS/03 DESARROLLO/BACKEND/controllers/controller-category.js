@@ -1,0 +1,49 @@
+const { Category } = require('../models/category')
+const createError = require('http-errors')
+
+async function getAllCategories(req, res, next) {
+  try {
+    let categories = await Category.find().sort({ name: 1 })
+    res.status(200).json(categories)
+  } catch (err) {
+    next(createError(400, 'Categories not found'))
+  }
+}
+async function getCategoryById(req, res, next) {
+  try {
+    let category = await Category.findById(req.params.id)
+    res.status(200).json(category)
+  } catch (err) {
+    next(createError(400, 'Category not found'))
+  }
+}
+async function createCategory(req, res, next) {
+  try {
+    let category = new Category(req.body)
+    await category.save()
+    res.status(201).json(category)
+  } catch (err) {
+    next(createError(400, 'Category not created'))
+  }
+}
+async function updateCategory(req, res, next) {
+  try {
+    let category = await Category.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.status(200).json(category)
+  } catch (err) {
+    next(createError(400, 'Category not updated'))
+  }
+}
+async function deleteCategory(req, res, next) {
+  try {
+    let category = await Category.findByIdAndDelete(req.params.id)
+    res.status(200).json(category)
+  } catch (err) {
+    next(createError(400, 'Category not deleted'))
+  }
+}
+
+module.exports = { getAllCategories, getCategoryById, createCategory, updateCategory, deleteCategory }
+// End of file
+// Language: javascript
+// Path: controllers\controller-category.js
