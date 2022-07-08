@@ -57,12 +57,18 @@ async function loginUser(req, res, next) {
       return next(createError(400, 'Password is incorrect'))
     }
     let token = user.generateAuthToken()
-res.status(200).json({ user: user.email, token: token })
+    res.status(200).json({ user: user.email, token: token })
   } catch (err) {
     return next(createError(400, err.message))
   }
 }
-module.exports = { getAllUsers, getUserById, createUser, updateUser, deleteUser, loginUser }
+function getCountUsers(req, res, next) {
+  User.countDocuments((err, count) => {
+    if (err) { return next(createError(400, err.message)) }
+    else { res.status(200).json({ count }) }
+  })
+}
+module.exports = { getAllUsers, getUserById, createUser, updateUser, deleteUser, loginUser, getCountUsers }
 // End of file
 // Language: javascript
 // Path: controllers\controller-category.js
