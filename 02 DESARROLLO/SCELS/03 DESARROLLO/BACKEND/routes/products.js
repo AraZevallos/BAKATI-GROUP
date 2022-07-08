@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getCountProducts, getFeaturedProducts } = require('../controllers/controller-product')
-const { validateProduct } = require('../middlewares/validate-models')
+const { validateProduct } = require('../middlewares/validate-product')
 const { validateId } = require('../middlewares/validate-id')
 
 router.get('/', [getAllProducts])

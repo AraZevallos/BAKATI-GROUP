@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const { getAllCategories, getCategoryById, createCategory, updateCategory, deleteCategory } = require('../controllers/controller-categories')
-const { validateCategory } = require('../middlewares/validate-models')
+const { validateCategory } = require('../middlewares/validate-category')
 const { validateId } = require('../middlewares/validate-id')
 
 router.get('/', [getAllCategories])
