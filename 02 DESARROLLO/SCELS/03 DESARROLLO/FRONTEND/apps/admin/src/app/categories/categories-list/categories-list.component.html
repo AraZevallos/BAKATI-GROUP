@@ -1,0 +1,39 @@
+<p-toast></p-toast>
+<div class="admin-page">
+    <p-card header="Categorias" subheader="Lista de Categorias"> 
+        <div class="grid">
+            <div class="col-12">
+                <p-toolbar>
+                    <div class="p-toolbar-group-left">
+                        <p-button styleClass="p-button-success" label="New" icon="pi pi-plus" routerLink="form"></p-button>
+                    </div>
+                </p-toolbar>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12">
+                <p-table [value]="categories" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Icono</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-category>
+                        <tr>
+                            <td>{{category._id}}</td>
+                            <td>{{category.name}}</td>
+                            <td>{{category.icon}}</td>
+                            <td>
+                                <p-button (click)="deleteCategory(category._id)" styleClass="p-button-danger mr-2" icon="pi pi-trash" ></p-button>
+                                <p-button styleClass="p-button-success" icon="pi pi-pencil" ></p-button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </p-card>
+</div>

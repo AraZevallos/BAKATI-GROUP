@@ -12,6 +12,7 @@ import {AccordionModule} from 'primeng/accordion';
 import { NavComponent } from './shared/nav/nav.component'; 
 import { ProductsModule } from '@frontend/products';
 import { UiModule } from '@frontend/ui';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -27,7 +28,7 @@ const routes: Routes = [
     FooterComponent,
     NavComponent,
   ],
-  imports: [BrowserModule,BrowserAnimationsModule ,RouterModule.forRoot(routes), AccordionModule, ProductsModule, UiModule],
+  imports: [BrowserModule,BrowserAnimationsModule ,RouterModule.forRoot(routes),HttpClientModule, AccordionModule, ProductsModule, UiModule],
   providers: [],
   bootstrap: [AppComponent],
 })
