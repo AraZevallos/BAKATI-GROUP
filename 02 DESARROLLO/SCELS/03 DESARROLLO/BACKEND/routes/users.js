@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const { validateId } = require('../middlewares/validate-id')
-const { validateAuth, validateUser } = require('../middlewares/validate-models')
+const { validateAuth, validateUser } = require('../middlewares/validate-user')
 const { getAllUsers, getUserById, createUser } = require('../controllers/controller-users')
 const { updateUser, deleteUser, loginUser, getCountUsers } = require('../controllers/controller-users')
 
