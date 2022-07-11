@@ -65,6 +65,7 @@ export class CategoriesFormComponent implements OnInit {
     },
     (error)=>{
       this.messageService.add({severity:'error', summary:'Error', detail:'Categoría no creada'});
+      console.log(error)
     });
   }
 

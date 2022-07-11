@@ -79,7 +79,7 @@ import {EditorModule} from 'primeng/editor';
     RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
     CardModule, ToolbarModule, ButtonModule, TableModule, InputTextModule, ToastModule,
     ConfirmDialogModule, ColorPickerModule, InputNumberModule,
-    InputTextareaModule,InputSwitchModule, DropdownModule],
+    InputTextareaModule,InputSwitchModule, DropdownModule,EditorModule],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
 })
