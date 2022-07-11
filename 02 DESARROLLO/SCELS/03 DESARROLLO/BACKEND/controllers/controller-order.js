@@ -1,5 +1,5 @@
 const { Order } = require('../models/order')
-const { OrderItem } = require('../models/orderItem')
+const { OrderItem } = require('../models/order-item')
 const createError = require('http-errors')
 
 async function getAllOrders(req, res, next) {
