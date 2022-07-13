@@ -8,17 +8,35 @@ import { environment } from '@env/environment';
   providedIn: 'root'
 })
 export class ProductsService {
-  apiURLCategories = environment.apiURL + 'products/';
+  apiURLProducts = environment.apiURL + 'products/';
 
   constructor(private http: HttpClient) {
 
    }
 
    getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiURLCategories);
+    return this.http.get<Product[]>(this.apiURLProducts);
   }
 
+  getProduct(categoryId: string): Observable<Product>{
+    return this.http.get<Product>(`${this.apiURLProducts}/${categoryId}`);
+   }
+
   getFeaturedProducts(count: number):  Observable<Product[]>{
-    return this.http.get<Product[]>(`${this.apiURLCategories}get/featured/${count}/`);
+    return this.http.get<Product[]>(`${this.apiURLProducts}get/featured/${count}/`);
   }
+
+  createProduct(product: Product): Observable<Product>{
+ 
+    return this.http.post<Product>(this.apiURLProducts, product);
+ }
+
+ updateProduct(product: Product, id: String): Observable<Product>{
+  return this.http.put<Product>(this.apiURLProducts+id, product);
+}
+
+
+ deleteProduct(productId: string): Observable<Object>{
+  return this.http.delete<Object>(`${this.apiURLProducts}${productId}`);
+ }
 }

@@ -42,7 +42,7 @@
                         </div>
                         <div class="field col-4 ">
                             <label for="category">Categoria</label><br/>
-                            <p-dropdown autoWidth="false" [style]="{'width':'100%'}"  appendTo="body" [options]="catagories" formControlName="category"  optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Elige una categoría"></p-dropdown>
+                            <p-dropdown autoWidth="false" [style]="{'width':'100%'}"  appendTo="body" [options]="catagories" formControlName="category"  optionLabel="name" optionValue="_id" [filter]="true" filterBy="name" [showClear]="true" placeholder="Elige una categoría"></p-dropdown>
                             <small *ngIf="productForm.category.invalid && isSubmited" class="p-error">La categoria es requerida</small>
                         </div>
                         <div class="field col">
@@ -60,7 +60,7 @@
                         </div>
                         <div class="field col-12">
                             <label for="name">Imagen Principal</label><br/>
-                            <input type="file" class="p-inputtext" accept="image/*" (change)="onImageUpload($event)"/>
+                            <input type="file" class="p-inputtext" accept="image/*" (change)="onImageUpload($event)" />
                             <div class="col-2 mt-3 pl-0" >
                                 <img style="width: 100%;" [src]="imageDisplay" alt="">
                             </div>

@@ -62,7 +62,7 @@ import {EditorModule} from 'primeng/editor';
         },
         {
           path:'products/form/:id',
-          component: CategoriesFormComponent
+          component: ProductsFormComponent
         }
       ]
     }
