@@ -3,6 +3,7 @@ const Joi = require('joi')
 Joi.objectId = require('joi-objectid')(Joi)
 
 function validateProduct(req, res, next) {
+  console.log("vale te amo")
   const { error } = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().required(),
