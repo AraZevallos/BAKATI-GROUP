@@ -30,6 +30,10 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {DropdownModule} from 'primeng/dropdown';
 import {EditorModule} from 'primeng/editor';
+import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
+import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
+import { TagModule } from 'primeng/tag';
+import {FieldsetModule} from 'primeng/fieldset';
 
   const routes: Routes = [
     {
@@ -63,13 +67,21 @@ import {EditorModule} from 'primeng/editor';
         {
           path:'products/form/:id',
           component: ProductsFormComponent
+        },
+        {
+          path:'orders',
+          component: OrdersListComponent
+        },
+        {
+          path:'orders/:id',
+          component: OrdersDetailComponent
         }
       ]
     }
   ];
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent , CategoriesFormComponent, ProductsListComponent, ProductsFormComponent ],
+  declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent , CategoriesFormComponent, ProductsListComponent, ProductsFormComponent, OrdersListComponent, OrdersDetailComponent ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -79,7 +91,8 @@ import {EditorModule} from 'primeng/editor';
     RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
     CardModule, ToolbarModule, ButtonModule, TableModule, InputTextModule, ToastModule,
     ConfirmDialogModule, ColorPickerModule, InputNumberModule,
-    InputTextareaModule,InputSwitchModule, DropdownModule,EditorModule],
+    InputTextareaModule,InputSwitchModule, DropdownModule,EditorModule, TagModule,
+    FieldsetModule],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
 })
