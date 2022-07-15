@@ -21,7 +21,9 @@ async function getProductById(req, res, next) {
   }
 }
 async function createProduct(req, res, next) {
+  console.log(req)
   try {
+    console.log(req)
     let category = await Category.findById(req.body.category)
     if (!category) return next(createError(400, 'Category not found'))
     let product = new Product(req.body)
