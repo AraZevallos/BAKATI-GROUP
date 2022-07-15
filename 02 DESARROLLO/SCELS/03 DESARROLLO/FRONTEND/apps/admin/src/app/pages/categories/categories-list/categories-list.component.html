@@ -15,20 +15,24 @@
                 <p-table [value]="categories" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Id</th>
-                            <th>Nombre</th>
+                            <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
                             <th>Icono</th>
+                            <th>Color</th>
                             <th></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-category>
                         <tr>
-                            <td>{{category._id}}</td>
                             <td>{{category.name}}</td>
-                            <td>{{category.icon}}</td>
+                            <td><i style="font-size: 2rem;" class="pi" [ngClass]="'pi-'+ category.icon"></i></td>
+                            <td>
+                                <i class="pi pi-circle-on" style="font-size: 2rem;" [ngStyle]="{color: category.color}">
+                                    
+                                </i>
+                            </td>
                             <td>
                                 <p-button (click)="deleteCategory(category._id)" styleClass="p-button-danger mr-2" icon="pi pi-trash" ></p-button>
-                                <p-button styleClass="p-button-success" icon="pi pi-pencil" ></p-button>
+                                <p-button  (click)="updateCategory(category._id)" styleClass="p-button-success" icon="pi pi-pencil" ></p-button>
                             </td>
                         </tr>
                     </ng-template>
@@ -37,3 +41,5 @@
         </div>
     </p-card>
 </div>
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+

@@ -18,7 +18,8 @@
       "@frontend/ui": ["libs/ui/src/index.ts"],
       "@frontend/orders": ["libs/orders/src/index.ts"],
       "@frontend/products": ["libs/products/src/index.ts"],
-      "@frontend/users": ["libs/users/src/index.ts"]
+      "@frontend/users": ["libs/users/src/index.ts"],
+      "@env/*" : ["environments/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
