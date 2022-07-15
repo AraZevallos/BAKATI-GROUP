@@ -1,0 +1,36 @@
+<div class="product-page" *ngIf="product">
+    <div class="grid">
+        <div class="col-6">
+            <!-- <ui-gallery [images]="product.images"></ui-gallery>  -->
+        </div>
+        <div class="col-6 product" >
+            <h2 class="product-name" >{{product.name}}</h2>
+            <p class="product-desc">
+                {{product.description}}
+            </p>
+            <div class="product-rating">
+                <p-rating [(ngModel)]="product.rating" [cancel]="false"></p-rating>
+            </div>
+            <div class="product-price">
+                {{product.price | currency}}
+                <span class="price-before">{{ product.price + 18 | currency}}</span>
+            </div>
+            <div class="product-quantity">
+                <div class="field col-12 md:col-3 p-0">
+                    <label for="quantity">Cantidad</label>
+                    <p-inputNumber [(ngModel)]="quantity" mode="decimal" [showButtons]="true" inputId="quantity" [min]="0" [max]="100">
+                    </p-inputNumber>
+                </div>
+            </div>
+            <div class="product-action">
+                <button pButton pRipple type="button" label="Comprar Ahora" class="p-button-rounded mr-2"></button>
+                <button pButton pRipple type="button" label="Agregar al carrito" class="p-button-rounded" (onClick)="addProductToCart()"></button>
+            </div>
+        </div>
+    </div>
+    <div class="grid product-rich-description">
+        <div class="col-12">
+            <div [innerHTML]="product.richDescription"></div>
+        </div>
+    </div>
+</div>
