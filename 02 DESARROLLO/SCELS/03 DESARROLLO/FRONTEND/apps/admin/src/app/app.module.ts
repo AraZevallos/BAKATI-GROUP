@@ -34,7 +34,9 @@ import { OrdersListComponent } from './pages/orders/orders-list/orders-list.comp
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { TagModule } from 'primeng/tag';
 import {FieldsetModule} from 'primeng/fieldset';
-
+import { UsersListComponent } from './pages/users/users-list/users-list.component';
+import { UsersFormComponent } from './pages/users/users-form/users-form.component';
+import {InputMaskModule} from 'primeng/inputmask';
   const routes: Routes = [
     {
       path:'',
@@ -69,6 +71,18 @@ import {FieldsetModule} from 'primeng/fieldset';
           component: ProductsFormComponent
         },
         {
+          path:'users',
+          component: UsersListComponent
+        },
+        {
+          path:'users/form',
+          component: UsersFormComponent
+        },
+        {
+          path:'users/form/:id',
+          component: UsersFormComponent
+        },
+        {
           path:'orders',
           component: OrdersListComponent
         },
@@ -81,7 +95,7 @@ import {FieldsetModule} from 'primeng/fieldset';
   ];
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent , CategoriesFormComponent, ProductsListComponent, ProductsFormComponent, OrdersListComponent, OrdersDetailComponent ],
+  declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent , CategoriesFormComponent, ProductsListComponent, ProductsFormComponent, OrdersListComponent, OrdersDetailComponent, UsersListComponent, UsersFormComponent ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -92,7 +106,7 @@ import {FieldsetModule} from 'primeng/fieldset';
     CardModule, ToolbarModule, ButtonModule, TableModule, InputTextModule, ToastModule,
     ConfirmDialogModule, ColorPickerModule, InputNumberModule,
     InputTextareaModule,InputSwitchModule, DropdownModule,EditorModule, TagModule,
-    FieldsetModule],
+    FieldsetModule,InputMaskModule],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],
 })
