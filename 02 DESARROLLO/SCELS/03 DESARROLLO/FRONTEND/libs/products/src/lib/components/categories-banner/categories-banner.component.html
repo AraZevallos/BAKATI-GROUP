@@ -4,7 +4,7 @@
         <h3>Categorías</h3>
         <div class="grid">
             <div class="col-2" *ngFor="let category of categories">
-                <div class="category" [routerLink]="'/products/category/'+category.id" [ngStyle]="{backgroundColor: category.color}">
+                <div class="category" [routerLink]="'/category/'+category.id" [ngStyle]="{backgroundColor: category.color}">
                     <div class="category-icon">
                         <i class="pi pi-{{category.icon}}"></i>
                     </div>
