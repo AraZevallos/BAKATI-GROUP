@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
@@ -11,6 +12,9 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
+import { UsersModule } from '@frontend/users';
+import { AuthGuard } from '../../../../libs/users/src/lib/services/auth-guard.service';
+import { JwtInterceptor } from '../../../../libs/users/src/lib/services/jwt.interceptor';
 
 import {CardModule} from 'primeng/card';
 import {ToolbarModule} from 'primeng/toolbar';
@@ -37,10 +41,15 @@ import {FieldsetModule} from 'primeng/fieldset';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
 import {InputMaskModule} from 'primeng/inputmask';
+
+
+
+
   const routes: Routes = [
     {
       path:'',
       component: ShellComponent,
+      canActivate: [AuthGuard],
       children: [
         {
           path:'dashboard',
@@ -106,8 +115,9 @@ import {InputMaskModule} from 'primeng/inputmask';
     CardModule, ToolbarModule, ButtonModule, TableModule, InputTextModule, ToastModule,
     ConfirmDialogModule, ColorPickerModule, InputNumberModule,
     InputTextareaModule,InputSwitchModule, DropdownModule,EditorModule, TagModule,
-    FieldsetModule,InputMaskModule],
-  providers: [CategoriesService, MessageService, ConfirmationService],
+    FieldsetModule,InputMaskModule, UsersModule],
+  providers: [CategoriesService, MessageService, ConfirmationService,
+  {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

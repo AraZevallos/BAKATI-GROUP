@@ -1,1 +1,40 @@
-<p>login works!</p>
+<div class="login-register">
+    <div class="login-register-panel">
+        <div class="grid">
+            <div class="col-6">
+                <img src="assets/images/login-photo.png" alt="">
+            </div>
+            <div class="col-6 p-5">
+                <h3>Bienvenido!</h3>
+                <h2>Iniciar Sesión</h2>
+                <form [formGroup]="loginFromGroup">
+                    <div class="grid mt-6">
+                        <div class="col-12">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                                <input type="text" formControlName="email" pInputText placeholder="Email">         
+                            </div>
+                            <small *ngIf="loginForm.email.invalid && isSubmitted" class="p-error">
+                                <span *ngIf="loginForm.email.errors.required">Email es requerido</span>
+                                <span *ngIf="loginForm.email.errors.email">Email es invalido</span>
+                            </small>
+                        </div>
+                        <div class="col-12">
+                            <div class="p-inputgroup">
+                                <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                                <input type="password" formControlName="password" pInputText placeholder="Password">         
+                            </div>
+                            <small *ngIf="loginForm.password.invalid && isSubmitted" class="p-error">Contraseña es requerido</small>
+                        </div>
+                        <div class="col-12">
+                            <p-button label="Ingresar" styleClass="full-btn" (onClick)="onSubmit()"></p-button>
+                        </div>
+                        <div class="col-12" *ngIf="isSubmitted && authError">
+                            <small class="p-error">{{authMessage}}</small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
