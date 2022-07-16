@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
@@ -11,6 +12,9 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
+import { UsersModule } from '@frontend/users';
+import { AuthGuard } from '../../../../libs/users/src/lib/services/auth-guard.service';
+import { JwtInterceptor } from '../../../../libs/users/src/lib/services/jwt.interceptor';
 
 import {CardModule} from 'primeng/card';
 import {ToolbarModule} from 'primeng/toolbar';
@@ -34,11 +38,18 @@ import { OrdersListComponent } from './pages/orders/orders-list/orders-list.comp
 import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
 import { TagModule } from 'primeng/tag';
 import {FieldsetModule} from 'primeng/fieldset';
+import { UsersListComponent } from './pages/users/users-list/users-list.component';
+import { UsersFormComponent } from './pages/users/users-form/users-form.component';
+import {InputMaskModule} from 'primeng/inputmask';
+
+
+
 
   const routes: Routes = [
     {
       path:'',
       component: ShellComponent,
+      canActivate: [AuthGuard],
       children: [
         {
           path:'dashboard',
@@ -69,6 +80,18 @@ import {FieldsetModule} from 'primeng/fieldset';
           component: ProductsFormComponent
         },
         {
+          path:'users',
+          component: UsersListComponent
+        },
+        {
+          path:'users/form',
+          component: UsersFormComponent
+        },
+        {
+          path:'users/form/:id',
+          component: UsersFormComponent
+        },
+        {
           path:'orders',
           component: OrdersListComponent
         },
@@ -81,7 +104,7 @@ import {FieldsetModule} from 'primeng/fieldset';
   ];
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent , CategoriesFormComponent, ProductsListComponent, ProductsFormComponent, OrdersListComponent, OrdersDetailComponent ],
+  declarations: [AppComponent, NxWelcomeComponent, DashboardComponent, ShellComponent, SidebarComponent, CategoriesListComponent , CategoriesFormComponent, ProductsListComponent, ProductsFormComponent, OrdersListComponent, OrdersDetailComponent, UsersListComponent, UsersFormComponent ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -92,8 +115,9 @@ import {FieldsetModule} from 'primeng/fieldset';
     CardModule, ToolbarModule, ButtonModule, TableModule, InputTextModule, ToastModule,
     ConfirmDialogModule, ColorPickerModule, InputNumberModule,
     InputTextareaModule,InputSwitchModule, DropdownModule,EditorModule, TagModule,
-    FieldsetModule],
-  providers: [CategoriesService, MessageService, ConfirmationService],
+    FieldsetModule,InputMaskModule, UsersModule],
+  providers: [CategoriesService, MessageService, ConfirmationService,
+  {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 import { Product } from '../../models/product';
 import { Subject, takeUntil } from 'rxjs';
+import { CartService } from '../../../../../orders/src/lib/services/cart.service';
+import { CartItem } from '../../../../../orders/src/lib/models/cart';
 
 @Component({
   selector: 'products-product-page',
@@ -14,9 +16,10 @@ export class ProductPageComponent implements OnInit, OnDestroy {
 
   product: Product;
   enSubs$: Subject<any> = new Subject();
-  quantity: number;
+  quantity= 1;
 
-  constructor(private productService: ProductsService, private route: ActivatedRoute) { }
+  constructor(private productService: ProductsService, private route: ActivatedRoute,
+              private cartService: CartService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params =>{
@@ -39,6 +42,11 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   }
 
   addProductToCart(){
-    
+    const cartItem : CartItem ={
+      productId: this.product.id,
+      quantity: this.quantity
+    }
+
+    this.cartService.setCartItem(cartItem);
   }
 }

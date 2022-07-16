@@ -5,6 +5,7 @@ import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../models/category';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'products-list',
   templateUrl: './products-list.component.html',
@@ -18,7 +19,8 @@ export class ProductsListComponent implements OnInit {
   isCategoryPage: boolean;
 
   constructor(private prodService: ProductsService, private categoriesService: CategoriesService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params=>{
