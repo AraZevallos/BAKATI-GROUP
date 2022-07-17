@@ -13,8 +13,11 @@ import { OrdersService } from '../../services/orders.service';
 export class OrderSummaryComponent implements OnInit, OnDestroy {
   endSubs$: Subject<any> = new Subject();
   totalPrice: number;
+  isCheckout = false;
 
-  constructor(private router: Router, private cartService: CartService, private ordersService: OrdersService) { }
+  constructor(private router: Router, private cartService: CartService, private ordersService: OrdersService) {
+    this.router.url.includes('checkout') ? this.isCheckout = true : this.isCheckout = false;
+  }
 
   ngOnInit(): void {
     this._getOrderSummary();
