@@ -13,6 +13,8 @@ import { ProductsModule } from '@frontend/products';
 import { UiModule } from '@frontend/ui';
 import { HttpClientModule } from '@angular/common/http';
 import { OrdersModule } from '../../../../libs/orders/src/lib/orders.module';
+import { MessagesComponent } from './shared/messages/messages.component';
+import { MessageService } from 'primeng/api';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
@@ -25,11 +27,12 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     NavComponent,
+    MessagesComponent,
   ],
   imports: [BrowserModule,BrowserAnimationsModule ,RouterModule.forRoot(routes),
             HttpClientModule, AccordionModule, ProductsModule, 
             UiModule, OrdersModule],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
