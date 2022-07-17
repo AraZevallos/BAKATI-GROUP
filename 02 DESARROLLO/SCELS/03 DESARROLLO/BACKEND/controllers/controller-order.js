@@ -28,12 +28,12 @@ async function createOrder(req, res, next) {
       return newOrderItem._id
     }))
     let orderItemsIdsResolved = await orderItemsIds
-    let totalPrices = Promise.all(req.body.orderItems.map(async (orderItemId) => {
+    let totalPrices = await Promise.all(orderItemsIdsResolved.map(async (orderItemId) => {
       let orderItem = await OrderItem.findById(orderItemId).populate('product', 'price')
       let totalPrice = orderItem.product.price * orderItem.quantity
       return totalPrice
     }))
-    let totalPriceResolved = await totalPrices.reduce((acc, curr) => acc + curr, 0)
+    let totalPriceResolved = totalPrices.reduce((acc, curr) => acc + curr, 0)
     req.body.orderItems = orderItemsIdsResolved
     req.body.totalPrice = totalPriceResolved
     let order = await new Order(req.body)
