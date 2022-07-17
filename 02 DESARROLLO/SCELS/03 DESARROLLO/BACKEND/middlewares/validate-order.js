@@ -24,7 +24,7 @@ function validateOrder(req, res, next) {
 }
 
 function validateOrderStatus(req, res, next) {
-  const {error} = Joi.object({
+  const { error } = Joi.object({
     status: Joi.string().required()
   }).validate(req.body)
   if (error) { return next(createError(400, error)) }
