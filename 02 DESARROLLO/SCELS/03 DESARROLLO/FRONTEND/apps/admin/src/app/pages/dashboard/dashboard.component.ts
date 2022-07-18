@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
     combineLatest([
       this.ordersService.getOrdersCount(),
       this.productService.getProductsCount(),
-    //  this.userService.getUsersCount(),
+      this.userService.getUsersCount(),
       this.ordersService.getTotalSales()
     ]).subscribe((values) => {
       this.statistics = values;
