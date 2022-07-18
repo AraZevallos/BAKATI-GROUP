@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Order } from '../models/order';
 import { environment } from '@env/environment';
 
@@ -9,7 +9,7 @@ import { environment } from '@env/environment';
 })
 export class OrdersService {
    apiURLOrders = environment.apiURL + 'orders/';
-
+   apiURLProducts = environment.apiURL + 'products/';
   constructor(private http: HttpClient) {
 
    }
@@ -33,4 +33,21 @@ export class OrdersService {
    deleteOrder(orderId: string): Observable<Object>{
     return this.http.delete<Object>(`${this.apiURLOrders}${orderId}`);
    }
+
+   
+  getOrdersCount(): Observable<number> {
+   return this.http
+     .get<number>(`${this.apiURLOrders}get/count`)
+     .pipe(map((objectValue: any) => objectValue.count));
+ }
+
+ getTotalSales(): Observable<number> {
+   return this.http
+     .get<number>(`${this.apiURLOrders}get/totalsales`)
+     .pipe(map((objectValue: any) => objectValue.totalSales));
+ }
+
+  getProduct(categoryId: string): Observable<any>{
+    return this.http.get<any>(`${this.apiURLProducts}/${categoryId}`);
+  }
 }
