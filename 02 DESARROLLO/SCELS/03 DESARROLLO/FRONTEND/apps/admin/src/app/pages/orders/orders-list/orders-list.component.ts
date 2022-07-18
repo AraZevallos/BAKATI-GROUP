@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { Order } from '@frontend/orders';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { OrdersService } from '../../../../../../../libs/orders/src/lib/services/orders.service';
-import { ORDER_STATUS } from '../order.constants';
+import { ORDER_STATUS } from '../../../../../../../libs/orders/src/lib/order.constants';
+
 
 
 

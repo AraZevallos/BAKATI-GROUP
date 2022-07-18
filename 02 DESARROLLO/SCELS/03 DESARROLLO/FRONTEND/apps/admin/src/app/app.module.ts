@@ -41,6 +41,8 @@ import {FieldsetModule} from 'primeng/fieldset';
 import { UsersListComponent } from './pages/users/users-list/users-list.component';
 import { UsersFormComponent } from './pages/users/users-form/users-form.component';
 import {InputMaskModule} from 'primeng/inputmask';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 
 
@@ -51,6 +53,10 @@ import {InputMaskModule} from 'primeng/inputmask';
       component: ShellComponent,
       canActivate: [AuthGuard],
       children: [
+        {
+          path:'',
+          component: DashboardComponent
+        },
         {
           path:'dashboard',
           component: DashboardComponent
@@ -109,6 +115,7 @@ import {InputMaskModule} from 'primeng/inputmask';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    StoreModule.forRoot({}), EffectsModule.forRoot([]) ,
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
