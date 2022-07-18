@@ -26,7 +26,7 @@
           <div class="col-7">
             <div class="cart-item-name">{{ cartItem.product.name }}</div>
             <div class="cart-item-price">
-              {{ cartItem.product.price | currency }}
+              {{ cartItem.product.price | currency : 'S/ ' }}
             </div>
             <div class="cart-item-remove">
               <p-button
@@ -51,7 +51,7 @@
             <div class="cart-item-subtotal">
               Subtotal:
               <span class="cart-item-subtotal-value">{{
-                cartItem.product.price * cartItem.quantity | currency
+                cartItem.product.price * cartItem.quantity | currency : 'S/ '
               }}</span>
             </div>
           </div>

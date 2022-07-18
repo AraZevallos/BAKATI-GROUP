@@ -9,7 +9,7 @@
     <h4 [routerLink]="'/products/' + product.id" class="name">
       {{ product.name }}
     </h4>
-    <h5 class="price">{{ product.price | currency }}</h5>
+    <h5 class="price">{{ product.price | currency : 'S/ ' }}</h5>
     <p-button
       styleClass="p-mt-3 add-to-cart"
       label="Agregar al carrito"

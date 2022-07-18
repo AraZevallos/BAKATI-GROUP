@@ -12,8 +12,8 @@
                 <p-rating [(ngModel)]="product.rating" [cancel]="false"></p-rating>
             </div>
             <div class="product-price">
-                {{product.price | currency}}
-                <span class="price-before">{{ product.price + 18 | currency}}</span>
+                {{product.price | currency : 'S/ '}}
+                <span class="price-before">{{ product.price + 18 | currency : 'S/ '}}</span>
             </div>
             <div class="product-quantity">
                 <div class="field col-12 md:col-3 p-0">
