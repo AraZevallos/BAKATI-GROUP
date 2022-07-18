@@ -14,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputMaskModule } from 'primeng/inputmask';
 import { DropdownModule } from 'primeng/dropdown';
 import { ThankYouComponent } from './pages/thank-you/thank-you.component';
+import { AuthGuard } from '../../../users/src/lib/services/auth-guard.service';
 
 
 export const ordersRoutes: Route[] = [];
@@ -25,6 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'checkout',
+    canActivate: [AuthGuard],
     component: CheckoutPageComponent
   },
   {

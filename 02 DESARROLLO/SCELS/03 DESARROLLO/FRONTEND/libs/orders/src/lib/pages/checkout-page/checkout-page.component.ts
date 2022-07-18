@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from '@frontend/users';
@@ -9,6 +9,7 @@ import { CartService } from '../../services/cart.service';
 import { Cart } from '../../models/cart';
 import { OrdersService } from '../../services/orders.service';
 import { ORDER_STATUS } from '../../order.constants';
+import { take, takeUntil, Subject } from 'rxjs';
 
 
 declare const require;
@@ -18,7 +19,7 @@ declare const require;
   styles: [
   ]
 })
-export class CheckoutPageComponent implements OnInit {
+export class CheckoutPageComponent implements OnInit, OnDestroy {
 
 
   constructor(
@@ -32,13 +33,19 @@ export class CheckoutPageComponent implements OnInit {
   checkoutFormGroup: FormGroup;
   isSubmitted = false;
   orderItems: OrderItem[] = [];
-  userId: string = "62d21abb42be0d5131d81c9c";
+  userId: string 
   countries = [];
+  unsubscribe$ : Subject<any> = new Subject();
 
   ngOnInit(): void {
     this._initCheckoutForm();
+    this._autoFillUserData();
     this._getCartItems();
     this._getCountries();
+  }
+  ngOnDestroy(): void {
+      this.unsubscribe$.next;
+      this.unsubscribe$.complete
   }
 
   private _initCheckoutForm() {
@@ -54,6 +61,23 @@ export class CheckoutPageComponent implements OnInit {
     });
   }
 
+  private _autoFillUserData(){
+    this.usersService.observeCurrentUser().pipe(takeUntil(this.unsubscribe$)).subscribe(user =>{
+      if(user){
+        this.userId = user.id;
+        this.checkoutForm.name.setValue(user.name);
+        this.checkoutForm.email.setValue(user.email);
+        this.checkoutForm.phone.setValue(user.phone);
+        this.checkoutForm.city.setValue(user.city);
+        this.checkoutForm.country.setValue(user.country);
+        this.checkoutForm.zip.setValue(user.zip);
+        this.checkoutForm.apartment.setValue(user.apartment);
+        this.checkoutForm.street.setValue(user.street);
+      }
+     
+    })
+  }
+
   private _getCartItems(){
     const cart: Cart = this.cartService.getCart();
     this.orderItems = cart.items.map(item =>{
@@ -62,8 +86,6 @@ export class CheckoutPageComponent implements OnInit {
         quantity: item.quantity
       }
     });
-
-    console.log(this.orderItems);
   }
 
   private _getCountries(){
