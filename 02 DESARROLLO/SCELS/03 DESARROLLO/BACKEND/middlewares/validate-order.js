@@ -15,7 +15,7 @@ function validateOrder(req, res, next) {
     country: Joi.string().required(),
     phone: Joi.string().required(),
     status: Joi.string().required(),
-    totalPrice: Joi.number().required(),
+    totalPrice: Joi.number(),
     user: Joi.objectId().required(),
     dateOrdered: Joi.date().default(Date.now)
   }).validate(req.body)
