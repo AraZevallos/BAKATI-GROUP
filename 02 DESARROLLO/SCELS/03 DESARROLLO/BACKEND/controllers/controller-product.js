@@ -36,15 +36,22 @@ async function getProductById(req, res, next) {
 }
 async function createProduct(req, res, next) {
   try {
-    const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
-    req.body.image = baseUrl + req.file.filename
-    let file = req.file
-    if (!file) return next(createError(400, 'No file uploaded'))
     let category = await Category.findById(req.body.category)
     if (!category) return next(createError(400, 'Category not found'))
     let product = new Product(req.body)
     await product.save()
     res.status(200).json(product)
+  } catch (err) {
+    return next(createError(400, err.message))
+  }
+}
+async function addImagePath(req, res, next){
+  try {
+    let file = req.file
+    if (!file) return next(createError(400, 'No file uploaded'))
+    const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
+    req.body.image = baseUrl + req.file.filename
+    next()
   } catch (err) {
     return next(createError(400, err.message))
   }
@@ -95,7 +102,7 @@ async function getFeaturedProducts(req, res, next) {
   }
 }
 
-module.exports = { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getCountProducts, getFeaturedProducts, updateProductGallery, storage }
+module.exports = { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getCountProducts, getFeaturedProducts, updateProductGallery, addImagePath, storage }
 // End of file
 // Language: javascript
 // Path: controllers\controller-category.js
