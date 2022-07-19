@@ -49,7 +49,7 @@ async function addImagePath(req, res, next){
   try {
     let file = req.file
     if (!file) return next(createError(400, 'No file uploaded'))
-    const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
+    const baseUrl = '/public/uploads/'
     req.body.image = baseUrl + req.file.filename
     next()
   } catch (err) {
@@ -58,7 +58,7 @@ async function addImagePath(req, res, next){
 }
 async function updateProduct(req, res, next) {
   try {
-    const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
+    const baseUrl = '/public/uploads/'
     if (req.file) { req.body.image = baseUrl + req.file.filename }
     let product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json(product)
@@ -67,7 +67,7 @@ async function updateProduct(req, res, next) {
   }
 }
 async function updateProductGallery(req, res, next) {
-  const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
+  const baseUrl = '/public/uploads/'
   let gallery = []
   req.files.forEach(file => { gallery.push(baseUrl + file.filename) })
   req.body.images = gallery
