@@ -16,8 +16,8 @@ export class MessagesComponent implements OnInit {
     this.cartService.cart$.subscribe(() => {
       this.messageService.add({
         severity: 'success',
-        summary: 'Success',
-        detail: 'Carrito Actualizado!'
+        summary: 'Éxito',
+        detail: 'Carrito actualizado!'
       });
     });
   }

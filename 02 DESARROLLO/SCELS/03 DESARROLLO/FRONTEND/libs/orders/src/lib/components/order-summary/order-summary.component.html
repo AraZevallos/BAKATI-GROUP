@@ -2,7 +2,7 @@
     <h3>Resumen de la Compra</h3>
     <div class="summary-price">
         <span>Precio de los artículos</span>
-        <span>{{totalPrice | currency}}</span>
+        <span>{{totalPrice | currency : 'S/ '}}</span>
     </div>
     <div class="summary-price">
         <span>Empaque y envío</span>
@@ -11,7 +11,7 @@
     <div class="to-checkout">
         <div class="summary-price">
             <span>Precio Total</span>
-            <span>{{totalPrice | currency}}</span>
+            <span>{{totalPrice | currency : 'S/ '}}</span>
         </div>
         <div class="checkout-button" *ngIf="!isCheckout">
             <p-button label="Verificar" (onClick)="navigateToCheckout()"></p-button>
