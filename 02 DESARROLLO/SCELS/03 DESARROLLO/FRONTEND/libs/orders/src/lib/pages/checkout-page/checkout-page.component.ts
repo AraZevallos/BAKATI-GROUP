@@ -110,32 +110,25 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const order: Order = {
+      orderItems: this.orderItems,
+      shippingAddress1: this.checkoutForm.street.value,
+      shippingAddress2: this.checkoutForm.apartment.value,
+      city: this.checkoutForm.city.value,
+      zip: this.checkoutForm.zip.value,
+      country: this.checkoutForm.country.value,
+      phone: this.checkoutForm.phone.value,
+      status: 'pendiente',
+      user: this.userId,
+      dateOrdered: `${Date.now()}`,
+    };
+
+    this.ordersService.cacheOrderData(order);
     this.ordersService.createCheckoutSession(this.orderItems).subscribe(error => {
       if (error) {
         console.error('Error al redireccionar el pago');
       }
     });
-
-    // const order: Order = {
-    //   orderItems: this.orderItems,
-    //   shippingAddress1: this.checkoutForm.street.value,
-    //   shippingAddress2: this.checkoutForm.apartment.value,
-    //   city: this.checkoutForm.city.value,
-    //   zip: this.checkoutForm.zip.value,
-    //   country: this.checkoutForm.country.value,
-    //   phone: this.checkoutForm.phone.value,
-    //   status: 'pendiente',
-    //   user: this.userId,
-    //   dateOrdered: `${Date.now()}`,
-    // };
-
-    // this.ordersService.createOrder(order).subscribe(() => {
-    //   this.router.navigate(['/success']);
-    //   this.cartService.emptyCart();
-    // },
-    // () => {
-
-    // });
   }
 
   get checkoutForm() {

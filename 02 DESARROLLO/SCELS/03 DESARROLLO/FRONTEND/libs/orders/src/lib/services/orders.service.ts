@@ -55,7 +55,7 @@ export class OrdersService {
 
   createCheckoutSession(orderItem: OrderItem[]) {
     return this.http
-      .post<any>(`${this.apiURLOrders}/create-checkout-session`, orderItem)
+      .post<any>(`${this.apiURLOrders}create-checkout-session`, orderItem)
       .pipe(
         switchMap((session: { id: string }) => {
           return this.stripeService.redirectToCheckout({
@@ -63,5 +63,17 @@ export class OrdersService {
           });
         })
       );
+  }
+
+  cacheOrderData(order: Order) {
+    localStorage.setItem('orderData', JSON.stringify(order))
+  }
+
+  getCachedOrderData(): Order {
+    return JSON.parse(localStorage.getItem('orderData'))
+  }
+
+  removeCachedOrderData() {
+    localStorage.removeItem('orderData')
   }
 }
