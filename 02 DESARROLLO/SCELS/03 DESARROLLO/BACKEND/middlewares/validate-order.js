@@ -32,7 +32,7 @@ function validateOrderStatus(req, res, next) {
 }
 
 function validateOrderCheckout(req, res, next) {
-  const { error } = Joi.array({
+  const { error } = Joi.array().items({
     product: Joi.objectId().required(),
     quantity: Joi.number().required()
   }).validate(req.body)
