@@ -36,10 +36,6 @@ async function getProductById(req, res, next) {
 }
 async function createProduct(req, res, next) {
   try {
-    const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
-    req.body.image = baseUrl + req.file.filename
-    let file = req.file
-    if (!file) return next(createError(400, 'No file uploaded'))
     let category = await Category.findById(req.body.category)
     if (!category) return next(createError(400, 'Category not found'))
     let product = new Product(req.body)
@@ -49,9 +45,20 @@ async function createProduct(req, res, next) {
     return next(createError(400, err.message))
   }
 }
+async function addImagePath(req, res, next){
+  try {
+    let file = req.file
+    if (!file) return next(createError(400, 'No file uploaded'))
+    const baseUrl = '/public/uploads/'
+    req.body.image = baseUrl + req.file.filename
+    next()
+  } catch (err) {
+    return next(createError(400, err.message))
+  }
+}
 async function updateProduct(req, res, next) {
   try {
-    const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
+    const baseUrl = '/public/uploads/'
     if (req.file) { req.body.image = baseUrl + req.file.filename }
     let product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json(product)
@@ -60,7 +67,7 @@ async function updateProduct(req, res, next) {
   }
 }
 async function updateProductGallery(req, res, next) {
-  const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
+  const baseUrl = '/public/uploads/'
   let gallery = []
   req.files.forEach(file => { gallery.push(baseUrl + file.filename) })
   req.body.images = gallery
@@ -95,7 +102,7 @@ async function getFeaturedProducts(req, res, next) {
   }
 }
 
-module.exports = { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getCountProducts, getFeaturedProducts, updateProductGallery, storage }
+module.exports = { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getCountProducts, getFeaturedProducts, updateProductGallery, addImagePath, storage }
 // End of file
 // Language: javascript
 // Path: controllers\controller-category.js
