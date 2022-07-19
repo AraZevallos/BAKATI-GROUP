@@ -1,7 +1,21 @@
 const { Product } = require('../models/product')
 const createError = require('http-errors')
 const { Category } = require('../models/category')
+const multer = require('multer')
 
+const FILE_TYPE_MAP = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/jpg': 'jpg' }
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    let uploadError = null
+    if (!FILE_TYPE_MAP[file.mimetype]) uploadError = new Error('Invalid file type')
+    cb(uploadError, 'public/uploads')
+  },
+  filename: function (req, file, cb) {
+    const name = file.originalname.split(' ').join('-')
+    const ext = FILE_TYPE_MAP[file.mimetype]
+    cb(null, name + '-' + Date.now() + '.' + ext)
+  }
+})
 async function getAllProducts(req, res, next) {
   let filter = {}
   if (req.query.categories) filter = { category: req.query.categories.split(',') }
@@ -22,6 +36,10 @@ async function getProductById(req, res, next) {
 }
 async function createProduct(req, res, next) {
   try {
+    const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
+    req.body.image = baseUrl + req.file.filename
+    let file = req.file
+    if (!file) return next(createError(400, 'No file uploaded'))
     let category = await Category.findById(req.body.category)
     if (!category) return next(createError(400, 'Category not found'))
     let product = new Product(req.body)
@@ -32,6 +50,20 @@ async function createProduct(req, res, next) {
   }
 }
 async function updateProduct(req, res, next) {
+  try {
+    const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
+    if (req.file) { req.body.image = baseUrl + req.file.filename }
+    let product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    res.status(200).json(product)
+  } catch (err) {
+    return next(createError(400, err.message))
+  }
+}
+async function updateProductGallery(req, res, next) {
+  const baseUrl = req.protocol + '://' + req.get('host') + '/public/uploads/'
+  let gallery = []
+  req.files.forEach(file => { gallery.push(baseUrl + file.filename) })
+  req.body.images = gallery
   try {
     let product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json(product)
@@ -63,7 +95,7 @@ async function getFeaturedProducts(req, res, next) {
   }
 }
 
-module.exports = { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getCountProducts, getFeaturedProducts }
+module.exports = { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct, getCountProducts, getFeaturedProducts, updateProductGallery, storage }
 // End of file
 // Language: javascript
 // Path: controllers\controller-category.js

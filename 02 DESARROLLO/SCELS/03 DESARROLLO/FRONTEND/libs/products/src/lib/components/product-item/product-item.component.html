@@ -1,12 +1,20 @@
 <div class="product-item" *ngIf="product">
-    <div class="product-item-wrapper">
-        
-        <h4 class="name">  {{product.name}}   </h4>
-        <h5 class="price">{{product.price | currency}}</h5>
-     <p-button
-        styleClass="p-mt-3 add-to-cart"
-        label="Add to cart"
-        icon="pi pi-shopping-cart"
-     ></p-button>
-    </div>
+  <div class="product-item-wrapper">
+    <img
+      crossorigin="anonymous"
+      [routerLink]="'/products/' + product.id"
+      [src]="product.image"
+      class="image"
+    />
+    <h4 [routerLink]="'/products/' + product.id" class="name">
+      {{ product.name }}
+    </h4>
+    <h5 class="price">{{ product.price | currency : 'S/ ' }}</h5>
+    <p-button
+      styleClass="p-mt-3 add-to-cart"
+      label="Agregar al carrito"
+      icon="pi pi-shopping-cart"
+      (onClick)="addProductToCart()"
+    ></p-button>
+  </div>
 </div>
