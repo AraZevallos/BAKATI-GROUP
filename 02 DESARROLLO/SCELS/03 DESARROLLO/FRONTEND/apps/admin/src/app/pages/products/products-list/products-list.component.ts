@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '@env/environment';
 import { Product, ProductsService } from '@frontend/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
@@ -10,13 +11,16 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class ProductsListComponent implements OnInit {
   products: Product[] = [];
+  base: string;
 
   constructor(
     private productsService: ProductsService,
     private router: Router,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
-  ) {}
+  ) {
+    this.base=environment.apiBase;
+  }
 
   ngOnInit(): void {
     this._getProducts();

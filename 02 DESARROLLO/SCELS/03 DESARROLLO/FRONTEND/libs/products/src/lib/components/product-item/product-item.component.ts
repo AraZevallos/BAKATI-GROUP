@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../../models/product';
 import { CartService } from '../../../../../orders/src/lib/services/cart.service';
 import { CartItem } from '../../../../../orders/src/lib/models/cart';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'products-product-item',
@@ -11,8 +12,10 @@ import { CartItem } from '../../../../../orders/src/lib/models/cart';
 })
 export class ProductItemComponent implements OnInit {
   @Input() product: Product
-  
-  constructor(private cartService: CartService) { }
+  base:string
+  constructor(private cartService: CartService) {
+    this.base=environment.apiBase
+   }
 
   ngOnInit(): void {
   }

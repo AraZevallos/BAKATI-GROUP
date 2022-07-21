@@ -43,6 +43,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { FileUploadModule } from 'primeng/fileupload';
+import { NgxStripeModule } from 'ngx-stripe';
 
 const routes: Routes = [
   {
@@ -148,7 +149,8 @@ const routes: Routes = [
     FieldsetModule,
     InputMaskModule,
     UsersModule,
-    FileUploadModule
+    FileUploadModule,
+    NgxStripeModule.forRoot('pk_test_51LN2VQG9VZofBzhLBPYsbVZ3sXrfdgruGjU3xYaBDcZjq8cC4EokTuHP9cMxU3iYniJV2IW9WgNMx8XWSE1Z7N7700B4Ky1RbC')
   ],
   providers: [
     CategoriesService,
