@@ -164,4 +164,61 @@ describe('Orders', () => {
       expect(res.body).toHaveProperty('phone', order.phone)
     })
   })
+
+  describe('PUT /orders/:id', () => {
+
+    let token, id, status
+    const exec = async () => {
+      return await request(server).put('/api/v1/orders/' + id)
+        .set('Authorization', 'bearer ' + token).send({ status })
+    }
+
+    beforeEach(async () => {
+      token = new User({ _id: mongoose.Types.ObjectId(), isAdmin: true })
+        .generateAuthToken()
+      let order = new Order({
+        user: mongoose.Types.ObjectId().toHexString(), orderItems: [mongoose.Types.ObjectId(), mongoose.Types.ObjectId()], status: 'pendiente',
+        totalPrice: 100, shippingAddress1: 'calle 1', city: 'ciudad1', zip: 'zip1', country: 'pais1', phone: 'telefono1'
+      })
+      await order.save()
+      id = order._id.toHexString()
+      status = 'entregado'
+    })
+
+    it('should return a 401 if client is not logged in', async () => {
+      token = ' '
+      const res = await exec()
+      expect(res.status).toBe(401)
+    })
+
+    it('should return a 400 if the status is invalid', async () => {
+      status = ' '
+      const res = await exec()
+      expect(res.status).toBe(400)
+    })
+
+    it('should return a 404 if the order is not found', async () => {
+      id = mongoose.Types.ObjectId().toHexString()
+      const res = await exec()
+      expect(res.status).toBe(404)
+    })
+
+    it('should return a 200 if client is logged in and admin', async () => {
+      const res = await exec()
+      expect(res.status).toBe(200)
+    })
+
+    it('should update the order if it is valid', async () => {
+      await exec()
+      const orderInDb = await Order.findById(id)
+      expect(orderInDb).not.toBeNull()
+      expect(orderInDb.status).toBe(status)
+    })
+
+    it('should return the order if it is valid', async () => {
+      const res = await exec()
+      expect(res.body).toHaveProperty('status', status)
+    })
+  })
+
 })
