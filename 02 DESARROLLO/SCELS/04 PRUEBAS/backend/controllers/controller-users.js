@@ -29,13 +29,12 @@ async function createUser(req, res, next) {
   }
 }
 async function updateUser(req, res, next) {
-  let userExist = await User.findById(req.params.id)
-  if (!userExist) return next(createError(404, 'User not found'))
-    (req.body.password)
-    ? req.body.password = bcrypt.hashSync(req.body.password, 10)
-    : req.body.password = userExist.password
   try {
-    let user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    let user = await User.findById(req.params.id)
+    if (!user) return next(createError(404, 'User not found'))
+    if (req.body.password) { req.body.password = bcrypt.hashSync(req.body.password, 10) }
+    else{req.body.password = user.password}
+    user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json(user)
   } catch (err) {
     return next(createError(400, err.message))
@@ -44,7 +43,7 @@ async function updateUser(req, res, next) {
 async function deleteUser(req, res, next) {
   try {
     let user = await User.findByIdAndDelete(req.params.id)
-    if(!user) return next(createError(404, 'User not found'))
+    if (!user) return next(createError(404, 'User not found'))
     res.status(200).json(user)
   } catch (err) {
     return next(createError(400, err.message))
