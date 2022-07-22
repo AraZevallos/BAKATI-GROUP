@@ -173,4 +173,52 @@ describe('Products', () => {
     })
   })
 
+  describe('DELETE /products/:id', () => {
+
+    let token, product, id
+    const exec = async () => {
+      return await request(server).delete('/api/v1/products/' + id)
+        .set('Authorization', 'bearer ' + token)
+    }
+
+    beforeEach(async () => {
+      token = new User({ _id: mongoose.Types.ObjectId(), isAdmin: true })
+        .generateAuthToken()
+      tempCategory = new Category({ name: 'Category 1' })
+      await tempCategory.save()
+      tempProduct = new Product({ name: 'Product 1', description: 'description 1', countInStock: 10, category: tempCategory._id.toHexString() })
+      await tempProduct.save()
+      id = tempProduct._id.toHexString()
+    })
+
+    it('should return a 401 if client is not logged in', async () => {
+      token = ' '
+      const res = await exec()
+      expect(res.status).toBe(401)
+    })
+
+    it('should return a 404 if product is not found', async () => {
+      id = mongoose.Types.ObjectId().toHexString()
+      const res = await exec()
+      expect(res.status).toBe(404)
+    })
+
+    it('should return a 400 if invalid id is passed', async () => {
+      id = '123'
+      const res = await exec()
+      expect(res.status).toBe(400)
+    })
+
+    it('should return a 200 if it is valid', async () => {
+      const res = await exec()
+      expect(res.status).toBe(200)
+    })
+
+    it('should delete the product if it is valid', async () => {
+      await exec()
+      const temp = await Product.findById(id)
+      expect(temp).toBeNull()
+    })
+  })
+
 })
