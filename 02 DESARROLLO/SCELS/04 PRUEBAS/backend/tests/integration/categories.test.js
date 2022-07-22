@@ -150,4 +150,50 @@ describe('Categories', () => {
       expect(res.body).toHaveProperty('name', name)
     })
   })
+
+  describe('DELETE /categories/:id', () => {
+
+    let token, category, id
+    const exec = async () => {
+      return await request(server).delete('/api/v1/categories/' + id)
+        .set('Authorization', 'bearer ' + token)
+    }
+
+    beforeEach(async () => {
+      token = new User({ _id: mongoose.Types.ObjectId(), isAdmin: true })
+        .generateAuthToken()
+      category = new Category({ name: 'Category 1' })
+      await category.save()
+      id = category._id
+    })
+
+    it('should return a 401 if client is not logged in', async () => {
+      token = ' '
+      const res = await exec()
+      expect(res.status).toBe(401)
+    })
+
+    it('should return a 404 if category is not found', async () => {
+      id = mongoose.Types.ObjectId().toHexString()
+      const res = await exec()
+      expect(res.status).toBe(404)
+    })
+
+    it('should return a 400 if invalid id is passed', async () => {
+      id = '1'
+      const res = await exec()
+      expect(res.status).toBe(400)
+    })
+
+    it('should return a 200 if it is valid', async () => {
+      const res = await exec()
+      expect(res.status).toBe(200)
+    })
+
+    it('should delete the category if it is valid', async () => {
+      await exec()
+      category = await Category.findById(id)
+      expect(category).toBeNull()
+    })
+  })
 })
