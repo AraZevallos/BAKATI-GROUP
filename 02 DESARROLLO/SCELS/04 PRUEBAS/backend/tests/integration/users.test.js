@@ -82,4 +82,43 @@ describe('Categories', () => {
       expect(res.body).toHaveProperty('isAdmin', user.isAdmin)
     })
   })
+
+  describe('POST /users/', () => {
+
+    let token, user
+    const exec = async () => {
+      return await request(server).post('/api/v1/users')
+        .set('Authorization', 'bearer ' + token).send(user)
+    }
+
+    beforeEach(async () => {
+      token = new User({ _id: mongoose.Types.ObjectId(), isAdmin: true })
+      .generateAuthToken()
+      user = { name: 'access1', email: 'access1', password: 'access1', phone: '982987654', isAdmin: true }
+    })
+
+    it('should return a 401 if no token is provided', () => { token = '' }, async () => {
+      const res = await exec()
+      expect(res.status).toBe(401)
+    })
+
+    it('should return a 400 if the user is malformed', async () => {
+      user = { name: 'access1' }
+      const res = await exec()
+      expect(res.status).toBe(400)
+    })
+
+    it('should return a 201 if the user is created', async () => {
+      const res = await exec()
+      expect(res.status).toBe(201)
+    })
+
+    it('should return the user if the user is created', async () => {
+      const res = await exec()
+      expect(res.body).toHaveProperty('name', user.name)
+      expect(res.body).toHaveProperty('email', user.email)
+      expect(res.body).toHaveProperty('phone', user.phone)
+      expect(res.body).toHaveProperty('isAdmin', user.isAdmin)
+    })
+  })
 })
