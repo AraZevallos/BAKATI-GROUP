@@ -4,10 +4,7 @@ Joi.objectId = require('joi-objectid')(Joi)
 
 function validateOrder(req, res, next) {
   const { error } = Joi.object({
-    orderItems: Joi.array().required({
-      product: Joi.objectId().required(),
-      quantity: Joi.number().required()
-    }),
+    orderItems: Joi.array().items({ product: Joi.objectId().required(), quantity: Joi.number().required() }),
     shippingAddress1: Joi.string().required(),
     shippingAddress2: Joi.string(),
     city: Joi.string().required(),

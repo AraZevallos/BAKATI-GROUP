@@ -6,8 +6,7 @@ const stripe = require('stripe')('sk_test_51LN2VQG9VZofBzhLnpB0gxAid5MVYeQsKq4NH
 
 async function getAllOrders(req, res, next) {
   try {
-    let orders = await Order.find({})
-      .populate('user', 'name').sort({ 'dateOrdered': -1 })
+    let orders = await Order.find({}).populate('user', 'name').sort({ 'dateOrdered': -1 })
     res.status(200).json(orders)
   } catch (err) {
     return next(createError(400, err.message))
@@ -17,6 +16,7 @@ async function getOrderById(req, res, next) {
   try {
     let order = await Order.findById(req.params.id).populate('user', 'name')
       .populate({ path: 'orderItems', populate: { path: 'product', populate: 'category' } })
+    if (!order) return next(createError(404, 'Orden is not found'))
     res.status(200).json(order)
   } catch (err) {
     return next(createError(400, err.message))
@@ -48,6 +48,7 @@ async function createOrder(req, res, next) {
 async function updateOrder(req, res, next) {
   try {
     let order = await Order.findByIdAndUpdate(req.params.id, { status: req.body.status }, { new: true })
+    if (!order) return next(createError(404, 'Orden is not found'))
     res.status(200).json(order)
   } catch (err) {
     return next(createError(400, err.message))
