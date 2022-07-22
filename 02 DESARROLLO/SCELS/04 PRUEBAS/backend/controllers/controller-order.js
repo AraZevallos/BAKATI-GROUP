@@ -57,6 +57,7 @@ async function updateOrder(req, res, next) {
 async function deleteOrder(req, res, next) {
   try {
     let order = await Order.findByIdAndDelete(req.params.id)
+    if (!order) return next(createError(404, 'Orden is not found'))
     await order.orderItems.forEach(async (orderItem) => {
       await OrderItem.findByIdAndDelete(orderItem)
     })

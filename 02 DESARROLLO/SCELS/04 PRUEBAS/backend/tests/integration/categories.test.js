@@ -58,8 +58,7 @@ describe('Categories', () => {
       name = 'Category 1'
     })
 
-    it('should return a 401 if client is not logged in', async () => {
-      token = ' '
+    it('should return a 401 if client is not logged in', () => { token = '' }, async () => {
       const res = await exec()
       expect(res.status).toBe(401)
     })
@@ -106,8 +105,7 @@ describe('Categories', () => {
       id = category._id.toHexString()
     })
 
-    it('should return a 401 if client is not logged in', async () => {
-      token = null
+    it('should return a 401 if client is not logged in', () => { token = '' }, async () => {
       const res = await exec()
       expect(res.status).toBe(401)
     })
@@ -167,8 +165,7 @@ describe('Categories', () => {
       id = category._id
     })
 
-    it('should return a 401 if client is not logged in', async () => {
-      token = ' '
+    it('should return a 401 if client is not logged in', () => { token = '' }, async () => {
       const res = await exec()
       expect(res.status).toBe(401)
     })
@@ -196,4 +193,5 @@ describe('Categories', () => {
       expect(category).toBeNull()
     })
   })
+
 })

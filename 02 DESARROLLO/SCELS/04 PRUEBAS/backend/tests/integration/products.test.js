@@ -69,8 +69,7 @@ describe('Products', () => {
       product = { name: 'Product 1', description: 'description 1', countInStock: 10, category: tempCategory._id.toHexString() }
     })
 
-    it('should return a 401 if client is not logged in', async () => {
-      token = ' '
+    it('should return a 401 if client is not logged in', () => { token = '' }, async () => {
       const res = await exec()
       expect(res.status).toBe(401)
     })
@@ -130,8 +129,7 @@ describe('Products', () => {
       product = { name: 'Product 2', description: 'description 2', countInStock: 20, category: tempCategory._id.toHexString() }
     })
 
-    it('should return a 401 if client is not logged in', async () => {
-      token = ' '
+    it('should return a 401 if client is not logged in', () => { token = '' }, async () => {
       const res = await exec()
       expect(res.status).toBe(401)
     })
@@ -191,8 +189,7 @@ describe('Products', () => {
       id = tempProduct._id.toHexString()
     })
 
-    it('should return a 401 if client is not logged in', async () => {
-      token = ' '
+    it('should return a 401 if client is not logged in', () => { token = '' }, async () => {
       const res = await exec()
       expect(res.status).toBe(401)
     })
