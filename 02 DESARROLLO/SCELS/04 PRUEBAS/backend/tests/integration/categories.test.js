@@ -88,4 +88,66 @@ describe('Categories', () => {
     })
 
   })
+
+  describe('PUT /categories/:id', () => {
+
+    let token, name, category, id
+    const exec = async () => {
+      return await request(server).put('/api/v1/categories/' + id)
+        .set('Authorization', 'bearer ' + token).send({ name })
+    }
+
+    beforeEach(async () => {
+      token = new User({ _id: mongoose.Types.ObjectId(), isAdmin: true })
+        .generateAuthToken()
+      name = 'Category 1'
+      category = new Category({ name })
+      await category.save()
+      id = category._id.toHexString()
+    })
+
+    it('should return a 401 if client is not logged in', async () => {
+      token = null
+      const res = await exec()
+      expect(res.status).toBe(401)
+    })
+
+    it('should return a 400 if category is invalid', async () => {
+      name = ''
+      const res = await exec()
+      expect(res.status).toBe(400)
+    })
+
+    it('should return a 404 if category is not found', async () => {
+      id = mongoose.Types.ObjectId().toHexString()
+      const res = await exec()
+      expect(res.status).toBe(404)
+    })
+
+    it('should return a 400 if invalid id is passed', async () => {
+      id = '1'
+      const res = await exec()
+      expect(res.status).toBe(400)
+    })
+
+    it('should return a 200 if it is valid', async () => {
+      const res = await exec()
+      expect(res.status).toBe(200)
+    })
+
+    it('should update the category if it is valid', async () => {
+      name = 'Category 2'
+      await exec()
+      const updatedCategory = await Category.findById(category._id)
+      expect(updatedCategory).not.toBeNull()
+      expect(updatedCategory.name).toBe(name)
+    })
+
+    it('should return the updated category', async () => {
+      name = 'Category 2'
+      const res = await exec()
+      expect(res.body).toHaveProperty('_id')
+      expect(res.body).toHaveProperty('name', name)
+    })
+  })
 })
