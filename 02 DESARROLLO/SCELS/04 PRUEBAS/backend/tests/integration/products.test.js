@@ -46,4 +46,63 @@ describe('Products', () => {
       expect(res.body).toHaveProperty('name', name)
     })
   })
+
+  describe('POST /products', () => {
+
+    let token, product
+    const exec = async () => {
+      return await request(server)
+        .post('/api/v1/products')
+        .set('Authorization', 'bearer ' + token)
+        .field('name', product.name)
+        .field('description', product.description)
+        .field('countInStock', product.countInStock)
+        .field('category', product.category)
+        .attach('image', 'tests/integration/assets/test.jpg')
+    }
+
+    beforeEach(async () => {
+      token = new User({ _id: mongoose.Types.ObjectId(), isAdmin: true })
+        .generateAuthToken()
+      tempCategory = new Category({ name: 'Category 1' })
+      await tempCategory.save()
+      product = { name: 'Product 1', description: 'description 1', countInStock: 10, category: tempCategory._id.toHexString() }
+    })
+
+    it('should return a 401 if client is not logged in', async () => {
+      token = ' '
+      const res = await exec()
+      expect(res.status).toBe(401)
+    })
+
+    it('should return a 201 if client is logged in and admin', async () => {
+      const res = await exec()
+      expect(res.status).toBe(201)
+    })
+
+    it('should return a 400 if product is invalid', async () => {
+      product.name = ''
+      const res = await exec()
+      expect(res.status).toBe(400)
+    })
+
+    it('shoud return a 404 if category is not found', async () => {
+      product.category = mongoose.Types.ObjectId().toHexString()
+      const res = await exec()
+      expect(res.status).toBe(404)
+    })
+
+    it('should save the product if it is valid', async () => {
+      await exec()
+      const temp = await Product.find({ name: product.name })
+      expect(temp).not.toBeNull()
+    })
+
+    it('should return the product if it is valid', async () => {
+      const res = await exec()
+      expect(res.body).toHaveProperty('_id')
+      expect(res.body).toHaveProperty('name', product.name)
+    })
+  })
+
 })
