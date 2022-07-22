@@ -175,4 +175,48 @@ describe('Categories', () => {
     })
   })
 
+  describe('DELETE /users/:id', () => {
+
+    let token, id
+    const exec = async () => {
+      return await request(server).delete('/api/v1/users/' + id)
+        .set('Authorization', 'bearer ' + token)
+    }
+
+    beforeEach(async () => {
+      let tempUser = new User({ name: 'access1', email: 'access1', password: 'access1', phone: '982987654', isAdmin: true })
+      await tempUser.save()
+      token = tempUser.generateAuthToken()
+      id = tempUser._id
+    })
+
+    it('should return a 401 if no token is provided', () => { token = '' }, async () => {
+      const res = await exec()
+      expect(res.status).toBe(401)
+    })
+
+    it('should return a 404 if the user is not found', async () => {
+      id = mongoose.Types.ObjectId()
+      const res = await exec()
+      expect(res.status).toBe(404)
+    })
+
+    it('should return a 400 if the user is not found', async () => {
+      id = '1'
+      const res = await exec()
+      expect(res.status).toBe(400)
+    })
+
+    it('should return a 200 if the user is found', async () => {
+      const res = await exec()
+      expect(res.status).toBe(200)
+    })
+
+    it('should delete the user if the user is found', async () => {
+      await exec()
+      const userInDb = await User.findById(id)
+      expect(userInDb).toBeNull()
+    })
+  })
+
 })
