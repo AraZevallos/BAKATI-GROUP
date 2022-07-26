@@ -34,7 +34,7 @@
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td>{{product.name}}</td>
-                            <td><img crossorigin="anonymous" [src]="product.image" style="height: 100px;" alt="" /></td>
+                            <td><img crossorigin="anonymous" [src]="base+product.image" style="height: 100px;" alt="" /></td>
                             <td>{{product.price}}</td>
                             <td>{{product.countInStock}}</td>
                             <td>{{product.category.name}}</td>
