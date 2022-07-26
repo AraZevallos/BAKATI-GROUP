@@ -8,10 +8,10 @@ const { updateUser, deleteUser, loginUser, getCountUsers } = require('../control
 
 router.get('/', [getAllUsers])
 router.get('/:id', [validateId, getUserById])
-router.post('/', [validateUser, createUser])
+router.get('/get/count', [getCountUsers])
+router.post('/login', [validateAuth, loginUser])
+router.post('/register', [validateUser, createUser])
 router.put('/:id', [validateId, validateUser, updateUser])
 router.delete('/:id', [validateId, deleteUser])
-router.post('/login', [validateAuth, loginUser])
-router.get('/get/count', [getCountUsers])
 
 module.exports = router

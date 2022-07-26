@@ -5,5 +5,5 @@ require('express-async-errors')
 module.exports = function (db) {
   mongoose.connect(db)
     .then(() => { logger.info('Database Connection is ready...') })
-    .catch((err) => { logger.error(err) })
+    // .catch(err => { logger.error('Could not connect to MongoDB...') })
 }
