@@ -403,4 +403,50 @@ describe("validateOrderStatus", () => {
   });
 });
 
+describe("validateOrderCheckout", () => {
+  let req, res, next;
+  const exec = () => {
+    validateOrderCheckout(req, res, next);
+  };
+  beforeEach(() => {
+    req = { body: {} };
+    res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+    next = (error) => {
+      if (error) {
+        res.status = error.status;
+        res.json = error.message;
+      } else {
+        res.status = 200;
+        res.json = "OK";
+      }
+    };
+  });
+  const expectError = (res) => {
+    expect(res.status).toBe(400);
+    expect(res.json).not.toBe("OK");
+    expect(res.status).not.toBe(200);
+  };
 
+  describe("validate Items", () => {
+    it("should return a 400 error if items is empty", () => {
+      exec();
+      expectError(res);
+    });
+
+    it("should return a 400 error if items are malformed", () => {
+      req.body = { items: [{}] };
+      exec();
+      expectError(res);
+    });
+
+    it("should return a 200 response if items are valid", () => {
+      req.body = [
+        { product: mongoose.Types.ObjectId().toHexString(), quantity: 1 },
+        { product: mongoose.Types.ObjectId().toHexString(), quantity: 1 },
+      ];
+      exec();
+      expect(res.status).toBe(200);
+      expect(res.json).toBe("OK");
+    });
+  });
+});
