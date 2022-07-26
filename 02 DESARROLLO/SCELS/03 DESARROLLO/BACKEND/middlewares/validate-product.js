@@ -6,6 +6,7 @@ function validateProduct(req, res, next) {
   const { error } = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().required(),
+    image: Joi.string(),
     richDescription: Joi.string().default(''),
     brand: Joi.string().default(''),
     price: Joi.number().default(0),

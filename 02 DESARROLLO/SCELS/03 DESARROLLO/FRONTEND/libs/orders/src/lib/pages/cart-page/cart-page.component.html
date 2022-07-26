@@ -1,49 +1,65 @@
 <div class="cart-page">
-    <div class="grid">
-        <div class="col-8">
-            <div>
-                <p-button
-                    label="Continuar Comprando"
-                    icon="pi pi-arrow-left"
-                    (onClick)="backToShop()"
-                ></p-button>
+  <div class="grid">
+    <div class="col-8">
+      <div>
+        <p-button
+          label="Continuar Comprando"
+          icon="pi pi-arrow-left"
+          (onClick)="backToShop()"
+        ></p-button>
+      </div>
+      <div>
+        <h4>Mi Carrito: {{ cartCount }} Item(s)</h4>
+      </div>
+      <div class="cart-shipping mb-5">
+        Envío después del pago, Tiempo de entrega: 1 a 4 días hábiles
+      </div>
+      <div class="cart-item mb-5" *ngFor="let cartItem of cartItemsDetailed">
+        <div class="grid p-fluid">
+          <div class="col-2 cart-item-image">
+            <img
+              crossorigin="anonymous"
+              [src]="cartItem.product.image"
+              [attr.alt]="cartItem.product.name"
+            />
+          </div>
+          <div class="col-7">
+            <div class="cart-item-name">{{ cartItem.product.name }}</div>
+            <div class="cart-item-price">
+              {{ cartItem.product.price | currency : 'S/ ' }}
             </div>
-            <div>
-                <h4>
-                    Mi Carrito: {{ cartCount }} Item(s)
-                </h4>
+            <div class="cart-item-remove">
+              <p-button
+                icon="pi pi-trash"
+                (onClick)="deleteCartItem(cartItem)"
+              ></p-button>
             </div>
-            <div class="cart-shipping mb-5">
-                Envío después del pago, Tiempo de entrega: 1 a 4 días hábiles
+          </div>
+          <div class="col-3">
+            <div class="field cart-item-quantity">
+              <p-inputNumber
+                mode="decimal"
+                [showButtons]="true"
+                inputId="cartItem.product.id"
+                [min]="1"
+                [max]="100"
+                [(ngModel)]="cartItem.quantity"
+                (onInput)="updateCartItemQuantity($event, cartItem)"
+              >
+              </p-inputNumber>
             </div>
-            <div class="cart-item mb-5"  *ngFor="let cartItem of cartItemsDetailed">
-                <div class="grid p-fluid">
-                    <div class="col-2 cart-item-image">
-                        <img src="https://img.clasf.pe/2019/02/27/Funko-Pop-Dota-2-Spirit-Breaker-Original-20190227071329.0100490015.jpg"
-                        [attr.alt]="cartItem.product.name">
-                    </div>
-                    <div class="col-7">
-                        <div class="cart-item-name">{{cartItem.product.name}}</div>
-                        <div class="cart-item-price">{{cartItem.product.price | currency}}</div>
-                        <div class="cart-item-remove">
-                            <p-button icon="pi pi-trash" (onClick)="deleteCartItem(cartItem)"></p-button>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="field cart-item-quantity">
-                            <p-inputNumber  mode="decimal" [showButtons]="true" inputId="cartItem.product.id" [min]="1" [max]="100" [(ngModel)]="cartItem.quantity" (onInput)="updateCartItemQuantity($event, cartItem)">
-                            </p-inputNumber>
-                        </div>
-                        <div class="cart-item-subtotal">
-                            Subtotal:
-                            <span class="cart-item-subtotal-value">{{cartItem.product.price * cartItem.quantity | currency}}</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="cart-item-subtotal">
+              Subtotal:
+              <span class="cart-item-subtotal-value">{{
+                cartItem.product.price * cartItem.quantity | currency : 'S/ '
+              }}</span>
             </div>
+          </div>
         </div>
-        <div class="col-4">
-            <orders-order-summary></orders-order-summary>
-        </div>        
+      </div>
     </div>
+    <div class="col-4">
+      <orders-order-summary></orders-order-summary>
+    </div>
+  </div>
 </div>
