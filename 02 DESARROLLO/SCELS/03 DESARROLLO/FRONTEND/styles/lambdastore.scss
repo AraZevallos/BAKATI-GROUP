@@ -26,10 +26,14 @@
 //Libs
 @import './libs/ui/ui.scss';
 @import './libs/products/products.scss';
+@import './libs/orders/orders.scss';
+@import './libs/users/users.scss';
 
 .container{
-    /* width: 1200px; */
+     /*width: 1200px; */
     padding-top: 8px;
     margin:0 auto;
     background-color: var(--surface-100);
+    min-height: 100vh;
 }
+

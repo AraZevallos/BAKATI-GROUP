@@ -24,7 +24,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.8",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.16",
+    "multer": "^1.4.5-lts.1",
+    "stripe": "^9.14.0",
     "winston": "^3.7.2",
     "winston-mongodb": "^5.0.7"
   }
