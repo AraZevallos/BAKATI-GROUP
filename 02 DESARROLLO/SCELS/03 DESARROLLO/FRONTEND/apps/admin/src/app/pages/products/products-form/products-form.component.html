@@ -19,18 +19,18 @@
                         <div class="field col">
                             <label for="name">Nombre</label>
                             <input formControlName="name" id="name" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                            <small *ngIf="productForm.name.invalid && isSubmited" class="p-error">El nombre es requerido</small>
+                            <small *ngIf="productForm.name.invalid && isSubmitted" class="p-error">El nombre es requerido</small>
                         </div>
                         <div class="field col">
                             <label for="brand">Marca</label>
                             <input formControlName="brand" id="brand" type="text" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
-                            <small *ngIf="productForm.brand.invalid && isSubmited" class="p-error">La marca es requerida</small>
+                            <small *ngIf="productForm.brand.invalid && isSubmitted" class="p-error">La marca es requerida</small>
                         </div>
                         <div class="field col">
                             <label for="price">Precio</label><br/>
                             <p-inputNumber formControlName="price" mode="decimal" inputId="price" [useGrouping]="false">
                             </p-inputNumber>
-                            <small *ngIf="productForm.price.invalid && isSubmited" class="p-error">El precio es requerido</small>
+                            <small *ngIf="productForm.price.invalid && isSubmitted" class="p-error">El precio es requerido</small>
                         </div>
                     </div>
                     <div class="fluid formgrid grid">
@@ -38,12 +38,12 @@
                             <label for="countInStock">Stock</label><br/>
                             <p-inputNumber formControlName="countInStock" mode="decimal" inputId="countInStock" [useGrouping]="false">
                             </p-inputNumber>
-                            <small *ngIf="productForm.countInStock.invalid && isSubmited" class="p-error">El stock es requerido</small>
+                            <small *ngIf="productForm.countInStock.invalid && isSubmitted" class="p-error">El stock es requerido</small>
                         </div>
                         <div class="field col-4 ">
                             <label for="category">Categoria</label><br/>
                             <p-dropdown autoWidth="false" [style]="{'width':'100%'}"  appendTo="body" [options]="catagories" formControlName="category"  optionLabel="name" optionValue="_id" [filter]="true" filterBy="name" [showClear]="true" placeholder="Elige una categoría"></p-dropdown>
-                            <small *ngIf="productForm.category.invalid && isSubmited" class="p-error">La categoria es requerida</small>
+                            <small *ngIf="productForm.category.invalid && isSubmitted" class="p-error">La categoria es requerida</small>
                         </div>
                         <div class="field col">
                             <label for="isFeatured">Destacado</label><br/> 
@@ -52,7 +52,7 @@
                         <div class="field col-12">
                             <label for="description">Descripcion</label><br/>
                             <textarea rows="7" cols="150" pInputTextarea formControlName="description"></textarea>
-                            <small *ngIf="productForm.description.invalid && isSubmited" class="p-error">La descripcion es requerida</small>
+                            <small *ngIf="productForm.description.invalid && isSubmitted" class="p-error">La descripcion es requerida</small>
                         </div>
                         <div class="field col-12">
                             <label for="richDescription">Detalles del Producto</label><br/>
@@ -62,7 +62,7 @@
                             <label for="name">Imagen Principal</label><br/>
                             <input type="file" class="p-inputtext" accept="image/*" (change)="onImageUpload($event)" />
                             <div class="col-2 mt-3 pl-0" >
-                                <img style="width: 100%;" [src]="imageDisplay" alt="">
+                                <img crossorigin="anonymous" style="width: 100%;" [src]="imageDisplay" alt="">
                             </div>
                         </div>
                     </div>

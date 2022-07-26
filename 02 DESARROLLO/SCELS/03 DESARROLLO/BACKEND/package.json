@@ -4,7 +4,7 @@
   "description": "backend del sistema de comercio electronico lambda store",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -25,7 +25,7 @@
     "mongoose": "^6.3.8",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^2.0.16",
+    "stripe": "^9.14.0",
     "winston": "^3.7.2",
     "winston-mongodb": "^5.0.7"
   }

@@ -10,32 +10,30 @@ import { Cart } from '../../models/cart';
 import { OrdersService } from '../../services/orders.service';
 import { ORDER_STATUS } from '../../order.constants';
 import { take, takeUntil, Subject } from 'rxjs';
-
+import { StripeService } from 'ngx-stripe';
 
 declare const require;
 @Component({
   selector: 'orders-checkout-page',
   templateUrl: './checkout-page.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class CheckoutPageComponent implements OnInit, OnDestroy {
-
-
   constructor(
     private router: Router,
     private usersService: UsersService,
     private formBuilder: FormBuilder,
     private cartService: CartService,
-    private ordersService: OrdersService
+    private ordersService: OrdersService,
+    private stripeService: StripeService,
   ) { }
 
   checkoutFormGroup: FormGroup;
   isSubmitted = false;
   orderItems: OrderItem[] = [];
-  userId: string 
+  userId: string;
   countries = [];
-  unsubscribe$ : Subject<any> = new Subject();
+  unsubscribe$: Subject<any> = new Subject();
 
   ngOnInit(): void {
     this._initCheckoutForm();
@@ -44,8 +42,8 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
     this._getCountries();
   }
   ngOnDestroy(): void {
-      this.unsubscribe$.next;
-      this.unsubscribe$.complete
+    this.unsubscribe$.next;
+    this.unsubscribe$.complete;
   }
 
   private _initCheckoutForm() {
@@ -57,46 +55,49 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
       country: ['', Validators.required],
       zip: ['', Validators.required],
       apartment: ['', Validators.required],
-      street: ['', Validators.required]
+      street: ['', Validators.required],
     });
   }
 
-  private _autoFillUserData(){
-    this.usersService.observeCurrentUser().pipe(takeUntil(this.unsubscribe$)).subscribe(user =>{
-      if(user){
-        this.userId = user.id;
-        this.checkoutForm.name.setValue(user.name);
-        this.checkoutForm.email.setValue(user.email);
-        this.checkoutForm.phone.setValue(user.phone);
-        this.checkoutForm.city.setValue(user.city);
-        this.checkoutForm.country.setValue(user.country);
-        this.checkoutForm.zip.setValue(user.zip);
-        this.checkoutForm.apartment.setValue(user.apartment);
-        this.checkoutForm.street.setValue(user.street);
-      }
-     
-    })
+  private _autoFillUserData() {
+    this.usersService
+      .observeCurrentUser()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((user) => {
+        if (user) {
+          this.userId = user.id;
+          this.checkoutForm.name.setValue(user.name);
+          this.checkoutForm.email.setValue(user.email);
+          this.checkoutForm.phone.setValue(user.phone);
+          this.checkoutForm.city.setValue(user.city);
+          this.checkoutForm.country.setValue(user.country);
+          this.checkoutForm.zip.setValue(user.zip);
+          this.checkoutForm.apartment.setValue(user.apartment);
+          this.checkoutForm.street.setValue(user.street);
+        }
+      });
   }
 
-  private _getCartItems(){
+  private _getCartItems() {
     const cart: Cart = this.cartService.getCart();
-    this.orderItems = cart.items.map(item =>{
-      return{
+    this.orderItems = cart.items.map((item) => {
+      return {
         product: item.productId,
-        quantity: item.quantity
-      }
+        quantity: item.quantity,
+      };
     });
   }
 
-  private _getCountries(){
-    countriesLib.registerLocale(require("i18n-iso-countries/langs/en.json"));
-    this.countries= Object.entries(countriesLib.getNames("en", {select: "official"})).map(entry =>{
+  private _getCountries() {
+    countriesLib.registerLocale(require('i18n-iso-countries/langs/en.json'));
+    this.countries = Object.entries(
+      countriesLib.getNames('en', { select: 'official' })
+    ).map((entry) => {
       return {
         id: entry[0],
-        name: entry[1]
-      }
-    })
-    
+        name: entry[1],
+      };
+    });
   }
 
   backToCart() {
@@ -117,21 +118,20 @@ export class CheckoutPageComponent implements OnInit, OnDestroy {
       zip: this.checkoutForm.zip.value,
       country: this.checkoutForm.country.value,
       phone: this.checkoutForm.phone.value,
-      status: "pendiente",
+      status: 'pendiente',
       user: this.userId,
       dateOrdered: `${Date.now()}`,
     };
 
-    this.ordersService.createOrder(order).subscribe(()=>{
-      //pagina de agradecimiento
-      this.router.navigate(['/success']);  
-      this.cartService.emptyCart();
-    })
-
+    this.ordersService.cacheOrderData(order);
+    this.ordersService.createCheckoutSession(this.orderItems).subscribe(error => {
+      if (error) {
+        console.error('Error al redireccionar el pago');
+      }
+    });
   }
 
   get checkoutForm() {
     return this.checkoutFormGroup.controls;
   }
-
 }

@@ -31,4 +31,13 @@ function validateOrderStatus(req, res, next) {
   next()
 }
 
-module.exports = { validateOrder, validateOrderStatus }
+function validateOrderCheckout(req, res, next) {
+  const { error } = Joi.array().items({
+    product: Joi.objectId().required(),
+    quantity: Joi.number().required()
+  }).validate(req.body)
+  if (error) { return next(createError(400, error)) }
+  next()
+}
+
+module.exports = { validateOrder, validateOrderStatus, validateOrderCheckout }
