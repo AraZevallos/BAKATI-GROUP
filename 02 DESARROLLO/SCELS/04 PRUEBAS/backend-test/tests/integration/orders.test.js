@@ -4,6 +4,7 @@ const { User } = require("../../models/user");
 const { Product } = require("../../models/product");
 const { OrderItem } = require("../../models/order-item");
 const { Order } = require("../../models/order");
+const { Category } = require("../../models/category");
 
 let server;
 describe("Orders", () => {
