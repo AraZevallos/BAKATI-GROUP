@@ -9,7 +9,7 @@ function validateProduct(req, res, next) {
     image: Joi.string(),
     richDescription: Joi.string().default(''),
     brand: Joi.string().default(''),
-    price: Joi.number().default(0),
+    price: Joi.number().required().min(0),
     category: Joi.objectId().required(),
     countInStock: Joi.number().required().min(0).max(255),
     rating: Joi.number().default(0),
@@ -21,12 +21,4 @@ function validateProduct(req, res, next) {
   next()
 }
 
-function validateProductGallery(req, res, next) {
-  const { error } = Joi.object({
-    images: Joi.array().items(Joi.string()).required(),
-  }).validate(req.body)
-  if (error) { return next(createError(400, error)) }
-  next()
-}
-
-module.exports = { validateProduct, validateProductGallery }
+module.exports = { validateProduct }
