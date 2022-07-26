@@ -6,6 +6,7 @@ const app = express()
 require('./startup/database')(process.env.CONNECTION_STRING)
 require('./startup/extensions')(app)
 require('./startup/routes')(app)
+app.use('/public/uploads', express.static(__dirname + '/public/uploads'))
 
 //Server
 app.listen(3000, () => {

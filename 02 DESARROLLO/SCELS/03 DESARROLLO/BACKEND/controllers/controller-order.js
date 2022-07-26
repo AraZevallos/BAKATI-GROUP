@@ -1,6 +1,8 @@
 const { Order } = require('../models/order')
-const { OrderItem } = require('../models/orderItem')
+const { OrderItem } = require('../models/order-item')
 const createError = require('http-errors')
+const { Product } = require('../models/product')
+const stripe = require('stripe')('sk_test_51LN2VQG9VZofBzhLnpB0gxAid5MVYeQsKq4NHZiYNjJceojKBMRW1HUjsnnm3pF4mvcbGXW9IsRKWsKQIPLOV9j100sOmnJcTg')
 
 async function getAllOrders(req, res, next) {
   try {
@@ -28,12 +30,12 @@ async function createOrder(req, res, next) {
       return newOrderItem._id
     }))
     let orderItemsIdsResolved = await orderItemsIds
-    let totalPrices = Promise.all(req.body.orderItems.map(async (orderItemId) => {
+    let totalPrices = await Promise.all(orderItemsIdsResolved.map(async (orderItemId) => {
       let orderItem = await OrderItem.findById(orderItemId).populate('product', 'price')
       let totalPrice = orderItem.product.price * orderItem.quantity
       return totalPrice
     }))
-    let totalPriceResolved = await totalPrices.reduce((acc, curr) => acc + curr, 0)
+    let totalPriceResolved = totalPrices.reduce((acc, curr) => acc + curr, 0)
     req.body.orderItems = orderItemsIdsResolved
     req.body.totalPrice = totalPriceResolved
     let order = await new Order(req.body)
@@ -86,7 +88,30 @@ async function getOrdersByUser(req, res, next) {
     return next(createError(400, err.message))
   }
 }
+async function checkout(req, res, next) {
+  try {
+    const orderItems = req.body
+    if (!orderItems) return next(createError(400, 'Checkout no puede ser creado - verifica los items de la orden'))
+    const lineItems = await Promise.all(orderItems.map(async (orderItem) => {
+      const product = await Product.findById(orderItem.product)
+      return {
+        price_data: { currency: 'pen', product_data: { name: product.name }, unit_amount: product.price * 100 },
+        quantity: orderItem.quantity
+      }
+    }))
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: 'http://localhost:4200/success',
+      cancel_url: 'http://localhost:4200/error'
+    })
+    res.status(200).json({ id: session.id })
+  } catch (error) {
+    return next(createError(400, error.message))
+  }
+}
 
-module.exports = { getAllOrders, getOrderById, createOrder, updateOrder, deleteOrder, getTotalSales, getCountOrders, getOrdersByUser }
+module.exports = { getAllOrders, getOrderById, createOrder, updateOrder, deleteOrder, getTotalSales, getCountOrders, getOrdersByUser, checkout }
 // Language: javascript
 // Path: controllers\controller-order.js
