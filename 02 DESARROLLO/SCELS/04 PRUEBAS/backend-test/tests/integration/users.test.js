@@ -182,8 +182,7 @@ describe("Users", () => {
     it("should return a 400 if the user is malformed", async () => {
       user = { name: "access1" };
       const res = await exec();
-      console.log(res.error);
-      // expect(res.status).toBe(400);
+      expect(res.status).toBe(400);
     });
 
     it("should return a 201 if the user is created", async () => {
