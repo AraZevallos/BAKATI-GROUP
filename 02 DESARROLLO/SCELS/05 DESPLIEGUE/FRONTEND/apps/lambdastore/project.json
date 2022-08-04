@@ -1,0 +1,93 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/lambdastore/src",
+  "prefix": "frontend",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/lambdastore",
+        "index": "apps/lambdastore/src/index.html",
+        "main": "apps/lambdastore/src/main.ts",
+        "polyfills": "apps/lambdastore/src/polyfills.ts",
+        "tsConfig": "apps/lambdastore/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/lambdastore/src/favicon.ico",
+          "apps/lambdastore/src/assets"
+        ],
+        "styles": ["apps/lambdastore/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/lambdastore/src/environments/environment.ts",
+              "with": "apps/lambdastore/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "lambdastore:build:production"
+        },
+        "development": {
+          "browserTarget": "lambdastore:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "lambdastore:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/lambdastore/**/*.ts",
+          "apps/lambdastore/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/lambdastore"],
+      "options": {
+        "jestConfig": "apps/lambdastore/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
