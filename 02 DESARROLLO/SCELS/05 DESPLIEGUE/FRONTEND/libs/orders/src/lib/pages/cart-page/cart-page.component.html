@@ -19,8 +19,9 @@
           <div class="col-2 cart-item-image">
             <img
               crossorigin="anonymous"
-              [src]="cartItem.product.image"
+              [src]="base+cartItem.product.image"
               [attr.alt]="cartItem.product.name"
+              style="max-width: 50%;"
             />
           </div>
           <div class="col-7">

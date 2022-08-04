@@ -1,7 +1,12 @@
 <div class="product-page" *ngIf="product">
     <div class="grid">
         <div class="col-6">
-            <!-- <ui-gallery [images]="product.images"></ui-gallery>  -->
+            <img
+            crossorigin="anonymous"
+            [routerLink]="'/products/' + product.id"
+            [src]="base+product.image"
+            class="image"
+          />
         </div>
         <div class="col-6 product" >
             <h2 class="product-name" >{{product.name}}</h2>

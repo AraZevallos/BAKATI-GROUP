@@ -5,6 +5,7 @@ import { Product } from '../../models/product';
 import { Subject, takeUntil } from 'rxjs';
 import { CartService } from '../../../../../orders/src/lib/services/cart.service';
 import { CartItem } from '../../../../../orders/src/lib/models/cart';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'products-product-page',
@@ -17,9 +18,11 @@ export class ProductPageComponent implements OnInit, OnDestroy {
   product: Product;
   enSubs$: Subject<any> = new Subject();
   quantity= 1;
-
+  base:string
   constructor(private productService: ProductsService, private route: ActivatedRoute,
-              private cartService: CartService) { }
+              private cartService: CartService) { 
+                this.base=environment.apiBase
+              }
 
   ngOnInit(): void {
     this.route.params.subscribe(params =>{

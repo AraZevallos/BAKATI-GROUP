@@ -4,6 +4,7 @@ import { CartService } from '../../services/cart.service';
 import { OrdersService } from '../../services/orders.service';
 import { CartItemDetailed } from '../../models/cart';
 import { Subject, takeUntil } from 'rxjs';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'orders-cart-page',
@@ -14,11 +15,14 @@ export class CartPageComponent implements OnInit, OnDestroy {
   cartItemsDetailed: CartItemDetailed[] = [];
   cartCount = 0;
   endSubs$: Subject<any> = new Subject();
+  base:string
   constructor(
     private router: Router,
     private cartService: CartService,
     private ordersService: OrdersService
-  ) {}
+  ) {
+    this.base=environment.apiBase
+  }
 
   ngOnInit(): void {
     this._getCartDetails();
