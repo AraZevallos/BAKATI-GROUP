@@ -1,0 +1,25 @@
+//Base
+@import '~normalize.css';
+@import './base/normalize.scss';
+@import './base/colors.scss';
+@import './base/fonts.scss';
+@import './base/mixins.scss';
+@import './base/configuration.scss';
+
+//Libraries
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/saga-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~primeflex/primeflex.css';
+@import '~animate.css/animate.css';
+
+//Shared
+@import './apps/admin/shell.scss';
+@import './apps/admin/dashboard.scss';
+
+
+
+//Libs
+@import './libs/ui/ui.scss';
+@import './libs/products/products.scss';
+@import './libs/users/users.scss';
