@@ -149,7 +149,7 @@ describe("Users", () => {
     let token, user;
     const exec = async () => {
       return await request(server)
-        .post("/api/v1/users")
+        .post("/api/v1/users/register")
         .set("Authorization", "bearer " + token)
         .send(user);
     };

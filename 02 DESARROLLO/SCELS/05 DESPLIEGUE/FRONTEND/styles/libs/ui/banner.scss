@@ -1,0 +1,52 @@
+.banner{
+    height: 380px;
+    width: 98%;
+    background-color: #BAE7FF;
+    border-radius: 5px;
+    margin: auto;
+
+    &-text{
+        color:rgba(0, 0, 0, 0.85);;
+        margin-top:80px;
+
+        h1{
+            margin:0;
+            font-family: 'Roboto';
+            font-size: 50px;
+            align-items: center;
+            font-weight: 500;
+        }
+        h2{
+            font-family: 'Roboto';
+            margin:0;
+            font-size:40px;
+            margin-bottom:10px;
+            font-weight: 500;
+        }
+
+    }
+
+    .col-5{
+        padding-left: 100px;
+        padding-top: 20px;
+    }
+    .p-button-info{
+        background-color: $primary-color-dark;
+        border:0;
+        &:enabled:hover{
+            background-color: $primary-color;
+            border:0;
+        }
+    }
+
+    .col-7{
+        padding-left:260px;
+        img {
+            width: 500px;
+        }
+        &-image{
+            text-align: right;
+        }
+    }
+    
+}
