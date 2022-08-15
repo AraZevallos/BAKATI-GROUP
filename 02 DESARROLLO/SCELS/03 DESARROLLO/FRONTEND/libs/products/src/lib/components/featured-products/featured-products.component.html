@@ -1,0 +1,9 @@
+
+<div class="categories-banner">
+    <h3>Productos Destacados</h3>
+    <div class="grid">
+        <div class="col-3" *ngFor="let product of featuredProducts">
+            <products-product-item [product]="product"></products-product-item>
+        </div>
+    </div>
+</div>
