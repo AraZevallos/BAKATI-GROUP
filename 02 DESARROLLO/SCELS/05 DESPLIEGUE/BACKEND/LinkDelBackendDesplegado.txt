@@ -1,1 +1,0 @@
-https://backend-gestion-configuracion.herokuapp.com/
