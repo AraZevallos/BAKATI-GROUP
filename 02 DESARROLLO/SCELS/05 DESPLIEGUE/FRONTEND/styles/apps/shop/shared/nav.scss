@@ -1,0 +1,16 @@
+.nav{
+    padding-top:8px;
+    li{
+        list-style:none;
+        display:inline-block;
+        margin-right: 15px;
+
+        a{
+            color:#ffffff;
+            cursor: pointer;
+            &:hover{
+                color:$primary-color;
+            }
+        }
+    }
+}
