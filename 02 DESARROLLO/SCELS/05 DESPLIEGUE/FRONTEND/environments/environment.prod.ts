@@ -1,5 +1,6 @@
 export const environment = {
     production: true,
-    apiURL: 'http://localhost:3000/api/v1/'
+    apiURL: 'https://backend-gestion-configuracion.herokuapp.com/api/v1/',
+    apiBase: 'https://backend-gestion-configuracion.herokuapp.com'
   };
   
