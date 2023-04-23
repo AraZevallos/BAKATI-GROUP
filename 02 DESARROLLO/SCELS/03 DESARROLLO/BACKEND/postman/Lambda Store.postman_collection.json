@@ -1,0 +1,812 @@
+{
+	"info": {
+		"_postman_id": "5ab06bf8-e5fe-4caf-a6f5-2ff03c3f7143",
+		"name": "Lambda Store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11257694"
+	},
+	"item": [
+		{
+			"name": "Categoría",
+			"item": [
+				{
+					"name": "Obtener Todas las Cateogorías",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Categoría por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62daeeeb6eda98cbdf07010d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Categoría",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Juegos\",\r\n    \"icon\": \"Overwatch\",\r\n    \"color\": \"#7f538a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Categoría",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Videojuegos\",\r\n    \"icon\": \"Overwatch\",\r\n    \"color\": \"#7f538a\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "644595c93fa05569a97963d6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Categoría",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/categories/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"categories",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "644595c93fa05569a97963d6"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sebastian.torres@unmsm.edu.pe\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sebastian\",\r\n    \"email\": \"sebastian.torres@unmsm.edu.pe\",\r\n    \"password\": \"123456789\",\r\n    \"phone\": \"950874789\",\r\n    \"isAdmin\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Usuario por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6445959a3fa05569a97963d3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sebastian\",\r\n    \"email\": \"sebastian.torres@unmsm.edu.pe\",\r\n    \"phone\": \"950874888\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6445959a3fa05569a97963d3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Usuario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6445959a3fa05569a97963d3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cantidad de usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/users/get/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"get",
+								"count"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Obtener todas las orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cantidad de orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders/get/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"get",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener ventas totales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders/get/totalsales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"get",
+								"totalsales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener orders por usuario id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders/get/userorders/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"get",
+								"userorders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62daee706eda98cbdf0700fa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener order por Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62fd5925c87ceb42b70a510a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"pendiente\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "62fd5925c87ceb42b70a510a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar order",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6445a7283fa05569a979640b"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"orderItems\": [\r\n        {\r\n            \"product\": {\r\n                \"name\": \"Audifonos Razer\",\r\n                \"description\": \"Razer Kraken X Lite Headset Para PS4 / Xbox One / PC - Negro (Audífonos)\",\r\n                \"richDescription\": \"<p><strong style=\\\"color: rgb(0, 0, 0);\\\">COMODIDAD ULTRALIGERA</strong></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">¿Y si te dijéramos que puedes disfrutar de una inmersión total cuando juegas sin apenas notar los auriculares? Te presentamos Razer Kraken X Lite. Unos auriculares ultraligeros de 250 g para una inmersión total con un sonido envolvente 7.1. Relájate y juega durante horas: tus maratones de juegos serán un paseo.</span></p><p><strong style=\\\"color: rgb(0, 0, 0);\\\">AUDIO POSICIONAL PRECISO Y CLARO</strong></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">Los auriculares están equipados con un software de sonido envolvente 7.1 para que disfrutes de un audio posicional preciso mientras juegas. Podrás elegir la dirección por la que suena la acción y así estarás listo para un tiroteo inminente. Gracias a los controladores optimizados de 40 mm, Razer Kraken X emite un sonido claro y equilibrado, tanto para las enormes explosiones en combate abierto como para las sigilosas pisadas de operaciones secretas.</span></p><p><strong style=\\\"color: rgb(0, 0, 0);\\\">ERGONÓMICO Y ULTRALIGERO CON 250 G</strong></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">Diseñado con un peso tan ligero que parecerá que no llevas nada en la cabeza.</span></p><p><strong style=\\\"color: rgb(0, 0, 0);\\\">COMUNÍCATE CON GRAN NITIDEZ</strong></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">El micrófono, flexible y plegable, cuenta con un diagrama cardioide que captura únicamente el sonido de la zona de la boca. De esta manera, graba tu voz de forma clara y elimina los ruidos de fondo que se produzcan detrás de ti y a los laterales.</span></p><p><strong style=\\\"color: rgb(0, 0, 0);\\\">COMPATIBILIDAD MULTIPLATAFORMA</strong></p><p><span style=\\\"color: rgb(0, 0, 0);\\\">Los Razer Kraken X son compatibles con PC, Mac, Xbox One*, PS4, Nintendo Switch y dispositivos móviles con conector minijack de audio de 3,5 mm.</span></p>\",\r\n                \"image\": \"/public/uploads/razer-kraken-v3-compatibility-500x500.png-1660769507932.png\",\r\n                \"images\": [],\r\n                \"brand\": \"Razer\",\r\n                \"price\": 700,\r\n                \"category\": {\r\n                    \"name\": \"Audio\",\r\n                    \"icon\": \"discord\",\r\n                    \"color\": \"#ccf2b1\",\r\n                    \"id\": \"62daeeeb6eda98cbdf07010d\"\r\n                },\r\n                \"countInStock\": 10,\r\n                \"rating\": 0,\r\n                \"numReviews\": 0,\r\n                \"isFeatured\": true,\r\n                \"dateCreated\": \"2022-07-22T19:24:02.608Z\",\r\n                \"id\": \"62daf9526eda98cbdf0701ee\"\r\n            },\r\n            \"quantity\": 2\r\n        }\r\n    ],\r\n    \"shippingAddress1\": \"Felipe Arancibia, 831\",\r\n    \"shippingAddress2\": \"Lima\",\r\n    \"city\": \"San Juan de Miraflores\",\r\n    \"zip\": \"15801\",\r\n    \"country\": \"PE\",\r\n    \"phone\": \"(111) 111-1111\",\r\n    \"status\": \"pendiente\",\r\n    \"totalPrice\": 1400,\r\n    \"user\": \"6445959a3fa05569a97963d3\",\r\n    \"dateOrdered\": \"2022-08-17T21:09:31.801Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/orders/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Obtener productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener producto por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products/:Id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								":Id"
+							],
+							"variable": [
+								{
+									"key": "Id",
+									"value": "6445a9e93fa05569a9796429"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener cantidad de productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products/get/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"get",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener destacados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products/get/featured/:count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"get",
+								"featured",
+								":count"
+							],
+							"variable": [
+								{
+									"key": "count",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/universidad/Gestión Configuración/SoftHome/02 DESARROLLO/DSEVI/02 Sprint 2/01 Desarrollo/backend/uploads/videojuegos/Hellblade_-_Senua's_Sacrifice.jpg"
+								},
+								{
+									"key": "name",
+									"value": "Senua Edición Coleccionista",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Videojuego Físico Edición Coleccionista",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "62daeeeb6eda98cbdf07010d",
+									"type": "text"
+								},
+								{
+									"key": "countInStock",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Producto",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hellblade: Senua's Sacrifice\",\r\n    \"description\": \"No sé xd\",\r\n    \"category\": \"62daeeeb6eda98cbdf07010d\",\r\n    \"countInStock\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6445a9e93fa05569a9796429"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar productos",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/products/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6445a9e93fa05569a9796429"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
