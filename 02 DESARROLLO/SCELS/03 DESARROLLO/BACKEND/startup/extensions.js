@@ -15,6 +15,6 @@ module.exports = function (app) {
   app.use(cookieParser());
   app.use(helmet());
   app.use(compression());
-  app.use(authenticate());
+  //app.use(authenticate());
   app.use(error);
 };
