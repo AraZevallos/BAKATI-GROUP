@@ -1,7 +1,7 @@
 const { createLogger, format, transports } = require('winston');
 
 // Import mongodb
-require('winston-mongodb')
+require('winston-mongodb');
 
 module.exports = createLogger({
   transports: [
@@ -13,8 +13,10 @@ module.exports = createLogger({
       format: format.combine(
         format.timestamp({ format: 'MMM-DD-YYYY HH:mm:ss' }),
         format.align(),
-        format.printf(info => `${info.level}: ${[info.timestamp]}: ${info.message}`),
-      )
+        format.printf(
+          (info) => `${info.level}: ${[info.timestamp]}: ${info.message}`
+        )
+      ),
     }),
     // NO LO PONGO EN LA BD PORQUE OCUPA MUCHO ESPACIO, FUNCIONA PERFECTO
     // // MongoDB transport

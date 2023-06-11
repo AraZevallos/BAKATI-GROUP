@@ -807,6 +807,155 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Comentarios",
+			"item": [
+				{
+					"name": "Obtener Comentarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/commentaries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"commentaries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Comentarios",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentary\": \"No hay stock\",\r\n    \"correo\": \"guillermosavero@gmail.com\",\r\n    \"nombres\": \"Guillermo\",\r\n    \"apellidos\": \"Savero Quispe(xD)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/commentaries",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"commentaries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener comentarios por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/commentaries/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"commentaries",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "648630a001bb84549a202183"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Comentario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"commentary\": \"actualizado\",\r\n    \"correo\": \"guillermosavero@gmail.com\",\r\n    \"nombres\": \"Guillermo\",\r\n    \"apellidos\": \"Savero Quispe(xD)\"\r\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/commentaries/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"commentaries",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "648630a001bb84549a202183"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar comentario",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/commentaries/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"commentaries",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "648630a001bb84549a202183"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
